@@ -6,19 +6,23 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonModule, MatTooltipModule} from '@angular/material';
 
+import { RouterModule } from "@angular/router";
+import { appRoutes } from "routes";
 import { AppComponent } from './app.component';
+import { ClientListComponent } from 'app/client/clientList.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, ClientListComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatButtonModule, MatTooltipModule
+    MatButtonModule, MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

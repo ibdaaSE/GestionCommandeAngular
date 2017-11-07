@@ -1,4 +1,6 @@
-<h1>
-  {{title}}
-</h1>
-<button mat-raised-button color="primary" matTooltip="Tooltip!" [fxHide]="true" [fxShow.gt-sm]="true" *ngIf="fxShow.sm">I have a tooltip</button>
+<div class="main-container">
+  <div fxFlex="50px"></div>
+  <div fxFlexFill>
+    <router-outlet></router-outlet>
+  </div>
+</div>
