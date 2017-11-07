@@ -12,7 +12,7 @@
 
 <mat-list dense>
     <mat-list-item *ngFor="let client of clients">
-        <client-info [client]="client" ></client-info>
+        <client-info [client]="client" (deleteEvent)="deletedClients($event)"></client-info>
     </mat-list-item>
 </mat-list>
 
