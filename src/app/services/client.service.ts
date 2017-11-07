@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IClient } from 'app/shared/models';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class ClientService {
@@ -15,5 +17,9 @@ export class ClientService {
 
         return this.http.get('/api/filteredClients?filter=' + filter + '&pageIndex=' + pageIndex)
             .map((response: Response) => response.json());
+    }
+
+    deleteClient(id: number): Observable<any> {
+        return this.http.delete('/api/clients/' + id);
     }
 }

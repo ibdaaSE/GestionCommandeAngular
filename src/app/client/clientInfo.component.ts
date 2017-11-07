@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ClientService } from 'app/services/client.service';
+import { IClient } from 'app/shared/models';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'client-info',
@@ -6,11 +9,27 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./clientInfo.component.css']
 })
 export class ClientInfoComponent implements OnInit {
-    @Input() client : any;
-    
-    constructor() { }
+    @Input() client: IClient;
+    @Output() deleteEvent = new EventEmitter;
+
+    constructor(private clientService: ClientService) { }
 
     ngOnInit() { }
 
-    
+    deleteClient() {
+        this.clientService.deleteClient(this.client.id).catch(this.handleError).
+            subscribe((val) => {
+            },
+            (err) => {
+                this.deleteEvent.emit("failed");
+            },
+            () => {
+                this.deleteEvent.emit("success");
+            });
+    }
+
+    private handleError(error: Response) {
+        return Observable.throw(error.statusText);
+    }
+
 }
