@@ -10,10 +10,12 @@ import { RouterModule } from "@angular/router";
 import { appRoutes } from "routes";
 import { AppComponent } from './app.component';
 import { ClientListComponent } from 'app/client/clientList.component';
+import { ClientInfoComponent } from 'app/client/clientInfo.component';
+import { ClientService } from 'app/services/client.service';
 
 @NgModule({
   declarations: [
-    AppComponent, ClientListComponent
+    AppComponent, ClientListComponent,ClientInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { ClientListComponent } from 'app/client/clientList.component';
     FlexLayoutModule,
     MatButtonModule, MatTooltipModule, MatIconModule
   ],
-  providers: [],
+  providers: [ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
