@@ -1,0 +1,102 @@
+.header-container{
+    background-color: #29b6f6;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.header-container h2{
+    color: white;
+}
+
+.searchField{
+    border-style: none;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0.0);
+    color: white;
+}
+
+.searchField:focus{
+    outline: none;
+}
+
+.searchField-container{
+    height: 40px;
+    border-color: white;
+    border-style: none;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0.308);
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.searchField::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+}
+.searchField::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+}
+.searchField:-ms-input-placeholder { /* IE 10+ */
+    color: white;
+}
+.searchField:-moz-placeholder { /* Firefox 18- */
+    color: white;
+}
+
+.pagination-container{
+    color: white;
+}
+
+.pagination-container p {
+    margin-right: 5px;
+}
+
+.pagination-container button{
+    min-width: 40px;
+    max-width: 40px;
+    width: 40px;
+    padding: 0px;
+}
+
+.content-container{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.actions-container{
+    min-height: 40px;
+    max-height: 40px;
+    height: 40px;
+}
+
+.actions-container .mat-fab{
+    min-height: 40px !important;
+    max-height: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    width: 40px !important;
+    padding: 0px !important;
+}
+
+.content-container .table-header{
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(236, 236, 236);
+}
+
+.table-header h5{
+    padding-right: 10px;
+    color: gray;
+}
+
+.table-row{
+    min-height: 50px;
+    max-height: 50px;
+    height: 50px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(241, 241, 241);
+}
+
+  

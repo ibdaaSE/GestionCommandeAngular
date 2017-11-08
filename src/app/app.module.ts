@@ -14,10 +14,17 @@ import { ClientInfoComponent } from 'app/client/clientInfo.component';
 import { ClientService } from 'app/services/client.service';
 import { EditClientComponent } from 'app/client/editClient.component';
 import { CreateClientComponent } from 'app/client/createClient.component';
+import { FournisseurInfoComponent } from 'app/fournisseur/fournisseurInfo.component';
+import { FournisseurListComponent } from 'app/fournisseur/fournisseurList.component';
+import { FournisseurService } from 'app/services/fournisseur.service';
+import { CreateFournisseurComponent } from 'app/fournisseur/createFournisseur.component';
+import { EditFournisseurComponent } from 'app/fournisseur/editFournisseur.component';
 
 @NgModule({
   declarations: [
-    AppComponent, ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent
+    AppComponent, 
+    ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
+    FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,7 @@ import { CreateClientComponent } from 'app/client/createClient.component';
     MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, 
     MatCardModule, MatMenuModule
   ],
-  providers: [ClientService],
+  providers: [ClientService,FournisseurService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

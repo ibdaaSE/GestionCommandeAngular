@@ -1,0 +1,41 @@
+<div class="module-container" fxLayout="column" fxLayoutAlign=" none">
+    <div class="header-container" fxFlex="60px" fxLayout="row" fxLayoutAlign=" center">
+        <h2 fxFlex>Mes fournisseurs</h2>
+        <div class="searchField-container" fxLayout="row" fxLayoutAlign=" center">
+            <input class="searchField" fxFlex="500px" type="text" #searchField (keyup.enter)="setFilter(searchField.value)" placeholder="Rechercher">
+            <mat-icon>search</mat-icon>
+        </div>
+        <div fxFlex></div>
+        <div class="pagination-container" fxFlex="250px" fxLayout="row" fxLayoutAlign="end center">
+            <p>
+                9999-9999 sur 99999
+            </p>
+            <button mat-button (click)="onClick" matTooltip="Page précédante">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button mat-button (click)="onClick" matTooltip="Page suivante">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="content-container" fxLayout="column" fxLayoutAlign=" none">
+        <div class="actions-container" fxLayout="row" fxLayoutAlign=" center">
+            <button mat-fab (click)="goToCreate()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="table-header" fxLayout="row">
+            <h5 fxFlex>Fournisseur</h5>
+            <h5 fxFlex>Adresse</h5>
+            <h5 fxFlex="100px">CP</h5>
+            <h5 fxFlex="100px">Ville</h5>
+            <h5 fxFlex="100px">Pays</h5>
+            <h5 fxFlex>Responsable</h5>
+            <h5 fxFlex="150px">E-mail</h5>
+            <span fxFlex="40px"></span>
+        </div>
+        <div class="table-row" *ngFor="let fournisseur of fournisseurs">
+            <fournisseur-info [fournisseur]="fournisseur" (deleteEvent)="deletedFournisseurs($event)"></fournisseur-info>
+        </div>
+    </div>
+</div>

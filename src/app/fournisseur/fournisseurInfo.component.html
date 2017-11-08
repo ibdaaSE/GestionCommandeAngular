@@ -1,0 +1,16 @@
+<div class="row-container" fxLayout="row" fxLayoutAlign=" center">
+    <p fxFlex>{{fournisseur.raisonSociale}}</p>
+    <p fxFlex>{{fournisseur.adresse}}</p>
+    <p fxFlex="100px">{{fournisseur.cp}}</p>
+    <p fxFlex="100px">{{fournisseur.ville}}</p>
+    <p fxFlex="100px">{{fournisseur.pays}}</p>
+    <p fxFlex>{{fournisseur.responsable}}</p>
+    <p fxFlex="150px">{{fournisseur.email}}</p>
+    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="clientMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #clientMenu="matMenu">
+        <button mat-menu-item (click)="deleteFournisseur()">Delete</button>
+        <button mat-menu-item (click)="editFournisseur()">update</button>
+    </mat-menu>
+</div>
