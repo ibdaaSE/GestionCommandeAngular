@@ -4,8 +4,8 @@ export interface IClient
     adresse? : String,
     cp? : String,
     email? : String,
-    pays : String,
+    pays? : String,
     raisonSociale : String,
-    responsable : String,
-    ville : String
+    responsable? : String,
+    ville? : String
 }
