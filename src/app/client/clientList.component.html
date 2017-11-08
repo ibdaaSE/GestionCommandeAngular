@@ -1,18 +1,20 @@
-<h1>Liste des clients</h1>
+<div class="module-container">
+    <h1>Liste des clients</h1>
 
-<mat-input-container floatPlaceholder="auto">
-    <input matInput 
-           type="text" #searchField
-           (keyup.enter)="setFilter(searchField.value)"
-           placeholder="rechercher">
-</mat-input-container>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput type="text" #searchField (keyup.enter)="setFilter(searchField.value)" placeholder="rechercher">
+    </mat-input-container>
 
+<<<<<<< HEAD
 <button mat-button (click)="goToCreate()">Ajouter</button>
+=======
+    <button mat-button (click)="onClick">Ajouter</button>
+>>>>>>> 8c8a73731b43916eb9530a1a69efd0039b9be6c0
 
 
-<mat-list dense>
-    <mat-list-item *ngFor="let client of clients">
-        <client-info [client]="client" (deleteEvent)="deletedClients($event)"></client-info>
-    </mat-list-item>
-</mat-list>
-
+    <mat-list dense>
+        <mat-list-item *ngFor="let client of clients">
+            <client-info [client]="client"></client-info>
+        </mat-list-item>
+    </mat-list>
+</div>
