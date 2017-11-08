@@ -15,19 +15,20 @@ export class ClientListComponent implements OnInit {
     pageIndex: number;
     pageLength: number;
 
-    clientCount: number;
+    count: number;
     clients: IClient[];
     selectedClient: IClient;
 
-    constructor(private clientService: ClientService, private snackBar : MatSnackBar ,
-    private router:Router) { }
+    constructor(private clientService: ClientService, private snackBar: MatSnackBar,
+        private router: Router) { }
 
     ngOnInit() {
         this.filter = "";
         this.pageIndex = 0;
         this.pageLength = 20;
-        this.clientCount = 0;
+        this.count = 0;
         this.getClients();
+        this.updatecount();
     }
 
     getClients() {
@@ -37,17 +38,45 @@ export class ClientListComponent implements OnInit {
         });
     }
 
-    setFilter(filter : String){
+    setFilter(filter: String) {
         this.filter = filter;
         this.getClients();
+        this.updatecount();
     }
 
-    deletedClients(message : string){
+    getNextPage() {
+        if (!this.hasNextPage()) return;
+        this.pageIndex = (this.pageIndex + this.pageLength);
         this.getClients();
-        this.snackBar.open(message, null, {duration: 2000});
     }
 
-    goToCreate(){
+    getPreviousPage() {
+        if (!this.hasPreviousPage()) return;
+        this.pageIndex = (this.pageIndex - this.pageLength);
+        this.getClients();
+    }
+
+    hasNextPage() {
+        return (this.count >= (this.pageIndex + this.pageLength))
+    }
+
+    hasPreviousPage() {
+        return (this.pageIndex > 0)
+    }
+
+    updatecount() {
+        let observable = this.clientService.count(this.filter);
+        observable.subscribe(count => {
+            this.count = +count;
+        });
+    }
+
+    deletedClients(message: string) {
+        this.getClients();
+        this.snackBar.open(message, null, { duration: 2000 });
+    }
+
+    goToCreate() {
         this.router.navigate(['/clients/create']);
     }
 }

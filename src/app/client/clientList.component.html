@@ -7,13 +7,22 @@
         </div>
         <div fxFlex></div>
         <div class="pagination-container" fxFlex="250px" fxLayout="row" fxLayoutAlign="end center">
-            <p>
-                9999-9999 sur 99999
+            <p *ngIf="count >= pageLength && pageIndex + pageLength <= count">
+                <b>{{pageIndex +1}}-{{pageIndex + pageLength}}</b> sur
+                <b>{{count}}</b>
             </p>
-            <button mat-button (click)="onClick" matTooltip="Page précédante">
+            <p *ngIf="count != 0 && count < pageLength">
+                <b>{{pageIndex +1}}-{{pageIndex + count}}</b> sur
+                <b>{{count}}</b>
+            </p>
+            <p *ngIf="pageIndex + pageLength > count">
+                <b>{{pageIndex +1}}-{{count}}</b> sur
+                <b>{{count}}</b>
+            </p>
+            <button [class.disabled]="!hasPreviousPage()" (click)="getPreviousPage()" mat-button (click)="onClick" matTooltip="Page précédante">
                 <mat-icon>chevron_left</mat-icon>
             </button>
-            <button mat-button (click)="onClick" matTooltip="Page suivante">
+            <button [class.disabled]="!hasNextPage()" (click)="getNextPage()" mat-button (click)="onClick" matTooltip="Page suivante">
                 <mat-icon>chevron_right</mat-icon>
             </button>
         </div>
@@ -22,6 +31,9 @@
         <div class="actions-container" fxLayout="row" fxLayoutAlign=" center">
             <button mat-fab (click)="goToCreate()">
                 <mat-icon>add</mat-icon>
+            </button>
+            <button mat-fab (click)="getClients()">
+                <mat-icon>update</mat-icon>
             </button>
         </div>
         <div class="table-header" fxLayout="row">

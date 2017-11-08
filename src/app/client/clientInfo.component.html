@@ -10,7 +10,9 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #clientMenu="matMenu">
-        <button mat-menu-item (click)="deleteClient()">Delete</button>
-        <button mat-menu-item (click)="editClient()">update</button>
+        <button mat-menu-item (click)="editClient()"><mat-icon>edit</mat-icon>
+            <span>Modifier</span></button>
+        <button mat-menu-item (click)="deleteClient()"><mat-icon>delete</mat-icon>
+            <span>Supprimer</span></button>
     </mat-menu>
 </div>

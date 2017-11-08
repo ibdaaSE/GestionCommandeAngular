@@ -19,6 +19,11 @@ export class ClientService {
             .map((response: Response) => response.json());
     }
 
+    count(filter: String): Observable<number> {
+        return this.http.get('/api/filteredClients/count?filter=' + filter)
+            .map((response: Response) => response.json());
+    }
+
     deleteClient(id: number): Observable<any> {
         return this.http.delete('/api/clients/' + id);
     }
