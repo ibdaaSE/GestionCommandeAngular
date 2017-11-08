@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response,Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IClient } from 'app/shared/models';
 import 'rxjs/add/operator/map';
@@ -22,4 +22,21 @@ export class ClientService {
     deleteClient(id: number): Observable<any> {
         return this.http.delete('/api/clients/' + id);
     }
+
+    getClient(id: number): Observable<IClient> {
+        return this.http.get('/api/clients/' + id).map((response: Response) => response.json());
+    }
+
+    createClient(client: IClient): Observable<IClient> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/clients', client, options).map((response: Response) => <IClient>response.json());;
+    }
+
+    editClient(client: IClient): Observable<IClient> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put('/api/clients/' + client.id, client, options).map((response: Response) => <IClient>response.json());
+    }
+
 }

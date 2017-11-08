@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ClientService } from 'app/services/client.service';
 import { IClient } from 'app/shared/models';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'client-info',
@@ -12,7 +13,7 @@ export class ClientInfoComponent implements OnInit {
     @Input() client: IClient;
     @Output() deleteEvent = new EventEmitter;
 
-    constructor(private clientService: ClientService) { }
+    constructor(private clientService: ClientService,private router:Router) { }
 
     ngOnInit() { }
 
@@ -26,6 +27,10 @@ export class ClientInfoComponent implements OnInit {
             () => {
                 this.deleteEvent.emit("success");
             });
+    }
+
+    editClient(){
+        this.router.navigate(["/clients/edit",this.client.id]);
     }
 
     private handleError(error: Response) {

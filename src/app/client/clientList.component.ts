@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'app/services/client.service';
 import { IClient } from 'app/shared/models';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'client-list',
@@ -18,7 +19,8 @@ export class ClientListComponent implements OnInit {
     clients: IClient[];
     selectedClient: IClient;
 
-    constructor(private clientService: ClientService, private snackBar : MatSnackBar ) { }
+    constructor(private clientService: ClientService, private snackBar : MatSnackBar ,
+    private router:Router) { }
 
     ngOnInit() {
         this.filter = "";
@@ -43,5 +45,9 @@ export class ClientListComponent implements OnInit {
     deletedClients(message : string){
         this.snackBar.open(message);
         this.getClients();
+    }
+
+    goToCreate(){
+        this.router.navigate(['/clients/create']);
     }
 }
