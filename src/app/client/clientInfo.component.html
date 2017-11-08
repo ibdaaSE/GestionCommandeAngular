@@ -1,5 +1,16 @@
-<div fxLayout="row">
-<p>{{client.raisonSociale}}</p>
-<button mat-button (click)="deleteClient()">Delete</button>
-<button mat-button (click)="editClient()">update</button>
+<div class="row-container" fxLayout="row" fxLayoutAlign=" center">
+    <p fxFlex>{{client.raisonSociale}}</p>
+    <p fxFlex>{{client.adresse}}</p>
+    <p fxFlex="100px">{{client.cp}}</p>
+    <p fxFlex="100px">{{client.ville}}</p>
+    <p fxFlex="100px">{{client.pays}}</p>
+    <p fxFlex>{{client.responsable}}</p>
+    <p fxFlex="150px">{{client.email}}</p>
+    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="clientMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #clientMenu="matMenu">
+        <button mat-menu-item (click)="deleteClient()">Delete</button>
+        <button mat-menu-item (click)="editClient()">update</button>
+    </mat-menu>
 </div>
