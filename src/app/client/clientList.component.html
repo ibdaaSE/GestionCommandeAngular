@@ -1,16 +1,19 @@
-<div class="module-container">
-    <h1>Liste des clients</h1>
+<div class="module-container" fxLayout="column" fxLayoutAlign=" none">
+    <div class="header-container" fxFlex="60px" fxLayout="row" fxLayoutAlign=" center">
+        <h2 fxFlex>Mes clients</h2>
+        <div class="searchField-container" fxLayout="row" fxLayoutAlign=" center">
+            <input class="searchField" fxFlex="300px" type="text" #searchField (keyup.enter)="setFilter(searchField.value)" placeholder="Rechercher">
+            <mat-icon>search</mat-icon>
+        </div>
 
-    <mat-input-container floatPlaceholder="auto">
-        <input matInput type="text" #searchField (keyup.enter)="setFilter(searchField.value)" placeholder="rechercher">
-    </mat-input-container>
+    </div>
+    <div class="content-container">
+        <button mat-button (click)="onClick">Ajouter</button>
 
-    <button mat-button (click)="onClick">Ajouter</button>
-
-
-    <mat-list dense>
-        <mat-list-item *ngFor="let client of clients">
-            <client-info [client]="client"></client-info>
-        </mat-list-item>
-    </mat-list>
+        <mat-list>
+            <mat-list-item *ngFor="let client of clients">
+                <client-info [client]="client" (deleteEvent)="deletedClients($event)"></client-info>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </div>

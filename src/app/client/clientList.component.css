@@ -1,4 +1,48 @@
 .module-container{
-    padding-left: 5px;
-    padding-right: 5px;
+    
 }
+
+.header-container{
+    background-color: #29b6f6;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.header-container h2{
+    color: white;
+}
+
+.searchField{
+    border-style: none;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0.0);
+    color: white;
+}
+
+.searchField:focus{
+    outline: none;
+}
+
+.searchField-container{
+    height: 40px;
+    border-color: white;
+    border-style: none;
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0.308);
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.searchField::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+  }
+  .searchField::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+  }
+  .searchField:-ms-input-placeholder { /* IE 10+ */
+    color: white;
+  }
+  .searchField:-moz-placeholder { /* Firefox 18- */
+    color: white;
+  }

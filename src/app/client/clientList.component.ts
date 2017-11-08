@@ -41,7 +41,7 @@ export class ClientListComponent implements OnInit {
     }
 
     deletedClients(message : string){
-        this.snackBar.open(message);
         this.getClients();
+        this.snackBar.open(message, null, {duration: 2000});
     }
 }

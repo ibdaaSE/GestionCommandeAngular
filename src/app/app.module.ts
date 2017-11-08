@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule } from '@angular/material';
 
 import { RouterModule } from "@angular/router";
 import { appRoutes } from "routes";
@@ -15,7 +15,7 @@ import { ClientService } from 'app/services/client.service';
 
 @NgModule({
   declarations: [
-    AppComponent, ClientListComponent,ClientInfoComponent,
+    AppComponent, ClientListComponent, ClientInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +24,7 @@ import { ClientService } from 'app/services/client.service';
     HttpModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatButtonModule, MatTooltipModule, MatIconModule,MatSnackBarModule
+    MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, MatCardModule
   ],
   providers: [ClientService],
   bootstrap: [AppComponent]
