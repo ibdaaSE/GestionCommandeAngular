@@ -6,11 +6,17 @@
     <p fxFlex="100px">{{fournisseur.pays}}</p>
     <p fxFlex>{{fournisseur.responsable}}</p>
     <p fxFlex="150px">{{fournisseur.email}}</p>
-    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="clientMenu">
+    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="fournisseurMenu">
         <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu #clientMenu="matMenu">
-        <button mat-menu-item (click)="deleteFournisseur()">Delete</button>
-        <button mat-menu-item (click)="editFournisseur()">update</button>
+    <mat-menu #fournisseurMenu="matMenu">
+        <button mat-menu-item (click)="editFournisseur()">
+            <mat-icon>edit</mat-icon>
+            <span>Modifier</span>
+        </button>
+        <button mat-menu-item (click)="deleteFournisseur()">
+            <mat-icon>delete</mat-icon>
+            <span>Supprimer</span>
+        </button>
     </mat-menu>
 </div>

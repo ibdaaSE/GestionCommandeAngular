@@ -19,6 +19,11 @@ export class FournisseurService {
             .map((response: Response) => response.json());
     }
 
+    count(filter: String): Observable<number> {
+        return this.http.get('/api/filteredFournisseurs/count?filter=' + filter)
+            .map((response: Response) => response.json());
+    }
+
     deleteFournisseur(id: number): Observable<any> {
         return this.http.delete('/api/fournisseurs/' + id);
     }

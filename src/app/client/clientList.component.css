@@ -21,26 +21,29 @@
 
 .searchField-container{
     height: 40px;
-    border-color: white;
     border-style: none;
-    border-width: 0;
-    background-color: rgba(255, 255, 255, 0.308);
-    color: white;
+    background-color: rgba(0, 0, 0, 0.212);
+    color: rgba(255, 255, 255, 0.534);
     padding-left: 10px;
     padding-right: 10px;
 }
 
+.searchField-container:focus-within{
+    border: 1px white solid;
+    color: rgb(255, 255, 255);
+}
+
 .searchField::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: white;
+    color: rgba(255, 255, 255, 0.534);
 }
 .searchField::-moz-placeholder { /* Firefox 19+ */
-    color: white;
+    color: rgba(255, 255, 255, 0.534);
 }
 .searchField:-ms-input-placeholder { /* IE 10+ */
-    color: white;
+    color: rgba(255, 255, 255, 0.534);
 }
 .searchField:-moz-placeholder { /* Firefox 18- */
-    color: white;
+    color: rgba(255, 255, 255, 0.534);
 }
 
 .pagination-container{
@@ -58,15 +61,18 @@
     padding: 0px;
 }
 
-.content-container{
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
 .actions-container{
     min-height: 40px;
     max-height: 40px;
     height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;  
+    padding-left: 10px;
+    padding-right: 10px;  
+}
+
+.actions-container .add-button{
+    background-color: #4caf50;    
 }
 
 .actions-container .mat-fab{
@@ -76,13 +82,17 @@
     min-width: 40px !important;
     max-width: 40px !important;
     width: 40px !important;
-    padding: 0px !important;
 }
 
 .content-container .table-header{
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(236, 236, 236);
+    min-height: 50px;
+    max-height: 50px;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .table-header h5{
@@ -97,6 +107,14 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(241, 241, 241);
+}
+
+.table-content{
+    overflow-y: auto;
+    min-height: calc(100vh - 160px) !important;
+    max-height: calc(100vh - 160px) !important;
+    height: calc(100vh - 160px) !important;
+    padding-left: 10px;
 }
 
   

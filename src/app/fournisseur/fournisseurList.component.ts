@@ -15,7 +15,7 @@ export class FournisseurListComponent implements OnInit {
     pageIndex: number;
     pageLength: number;
 
-    fournisseurCount: number;
+    count: number;
     fournisseurs: IFournisseur[];
     selectedFournisseur: IFournisseur;
 
@@ -26,8 +26,9 @@ export class FournisseurListComponent implements OnInit {
         this.filter = "";
         this.pageIndex = 0;
         this.pageLength = 20;
-        this.fournisseurCount = 0;
+        this.count = 0;
         this.getFournisseurs();
+        this.updatecount();
     }
 
     getFournisseurs() {
@@ -40,6 +41,34 @@ export class FournisseurListComponent implements OnInit {
     setFilter(filter : String){
         this.filter = filter;
         this.getFournisseurs();
+        this.updatecount();
+    }
+
+    getNextPage() {
+        if (!this.hasNextPage()) return;
+        this.pageIndex = (this.pageIndex + this.pageLength);
+        this.getFournisseurs();
+    }
+
+    getPreviousPage() {
+        if (!this.hasPreviousPage()) return;
+        this.pageIndex = (this.pageIndex - this.pageLength);
+        this.getFournisseurs();
+    }
+
+    hasNextPage() {
+        return (this.count >= (this.pageIndex + this.pageLength))
+    }
+
+    hasPreviousPage() {
+        return (this.pageIndex > 0)
+    }
+
+    updatecount() {
+        let observable = this.fournisseurService.count(this.filter);
+        observable.subscribe(count => {
+            this.count = +count;
+        });
     }
 
     deletedFournisseurs(message : string){

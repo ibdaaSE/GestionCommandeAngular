@@ -5,19 +5,15 @@
             <input class="searchField" fxFlex="500px" type="text" #searchField (keyup.enter)="setFilter(searchField.value)" placeholder="Rechercher">
             <mat-icon>search</mat-icon>
         </div>
-        <div fxFlex></div>
-        <div class="pagination-container" fxFlex="250px" fxLayout="row" fxLayoutAlign="end center">
+        <div class="pagination-container" fxFlex fxLayout="row" fxLayoutAlign="end center">
             <p *ngIf="count >= pageLength && pageIndex + pageLength <= count">
-                <b>{{pageIndex +1}}-{{pageIndex + pageLength}}</b> sur
-                <b>{{count}}</b>
+                {{pageIndex +1}}-{{pageIndex + pageLength}} sur {{count}}
             </p>
             <p *ngIf="count != 0 && count < pageLength">
-                <b>{{pageIndex +1}}-{{pageIndex + count}}</b> sur
-                <b>{{count}}</b>
+                {{pageIndex +1}}-{{pageIndex + count}} sur {{count}}
             </p>
             <p *ngIf="pageIndex + pageLength > count">
-                <b>{{pageIndex +1}}-{{count}}</b> sur
-                <b>{{count}}</b>
+                {{pageIndex +1}}-{{count}} sur {{count}}
             </p>
             <button [class.disabled]="!hasPreviousPage()" (click)="getPreviousPage()" mat-button (click)="onClick" matTooltip="Page précédante">
                 <mat-icon>chevron_left</mat-icon>
@@ -29,11 +25,12 @@
     </div>
     <div class="content-container" fxLayout="column" fxLayoutAlign=" none">
         <div class="actions-container" fxLayout="row" fxLayoutAlign=" center">
-            <button mat-fab (click)="goToCreate()">
+            <button class="add-button" mat-mini-fab (click)="goToCreate()" matTooltip="Nouveau client" matTooltipPosition="after">
                 <mat-icon>add</mat-icon>
             </button>
-            <button mat-fab (click)="getClients()">
-                <mat-icon>update</mat-icon>
+            <div fxFlex></div>
+            <button mat-icon-button class="mat-elevation-z0" matTooltip="Rafraîchir la liste" matTooltipPosition="before" (click)="getClients()">
+                <mat-icon>autorenew</mat-icon>
             </button>
         </div>
         <div class="table-header" fxLayout="row">
@@ -44,10 +41,12 @@
             <h5 fxFlex="100px">Pays</h5>
             <h5 fxFlex>Responsable</h5>
             <h5 fxFlex="150px">E-mail</h5>
-            <span fxFlex="40px"></span>
+            <span fxFlex="46px"></span>
         </div>
-        <div class="table-row" *ngFor="let client of clients">
-            <client-info [client]="client" (deleteEvent)="deletedClients($event)"></client-info>
+        <div class="table-content" fxLayout="column" fxLayoutAlign=" none">
+            <div class="table-row" *ngFor="let client of clients">
+                <client-info [client]="client" (deleteEvent)="deletedClients($event)"></client-info>
+            </div>
         </div>
     </div>
 </div>
