@@ -14,7 +14,7 @@ export const appRoutes: Routes = [
     { path: 'fournisseurs/create', component: CreateFournisseurComponent },
     { path: 'fournisseurs/edit/:id', component: EditFournisseurComponent },
     { path: 'fournisseurs', component: FournisseurListComponent },
-    { path: '', redirectTo: '/fournisseurs', pathMatch: 'full' }
+    { path: '', redirectTo: '/clients', pathMatch: 'full' }
 
 
 ]

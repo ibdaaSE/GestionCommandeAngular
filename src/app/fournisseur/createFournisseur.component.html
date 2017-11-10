@@ -1,40 +1,49 @@
-<h2>create Fournisseur </h2>
-<form [formGroup]="fournisseurForm" (ngSubmit)="createFournisseur(fournisseurForm.value)">
-<mat-input-container floatPlaceholder="auto">
-    <input matInput formControlName="raisonSociale"
-           type="text"
-           placeholder="raisonSociale">
-</mat-input-container>
-<mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="responsable"
-               type="text"
-               placeholder="responsable">
-</mat-input-container>
-<mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="adresse"
-               type="text"
-               placeholder="adresse">            
-</mat-input-container>
-<mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="email"
-               type="text"
-               placeholder="email">
-</mat-input-container>
-<mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="cp"
-               type="text"
-               placeholder="cp">
-</mat-input-container>
-<mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="ville"
-               type="text"
-               placeholder="ville">
-</mat-input-container>
-<mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="pays"
-               type="text"
-               placeholder="pays">
-</mat-input-container>
-<button mat-button type="submit">Submit</button>
-<button mat-button (click)="cancel()">retour</button>
-</form>
+<div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlexFill>
+        <form [formGroup]="fournisseurForm" (ngSubmit)="createFournisseur(fournisseurForm.value)" fxLayout="column" fxLayoutAlign="space-evenly stretch"
+                class="main-form" fxFlex>
+                <h1>Nouveau fournisseur </h1>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="raisonSociale" type="text" placeholder="Raison sociale *" autofocus>
+                        </mat-input-container>
+                        <span fxFlex="1"></span>
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="responsable" type="text" placeholder="Responsable">
+                        </mat-input-container>
+                </div>
+                <div>
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="adresse" type="text" placeholder="Adresse">
+                        </mat-input-container>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="email" type="email" placeholder="E-mail">
+                        </mat-input-container>
+                        <span fxFlex="1"></span>
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="cp" type="text" placeholder="CP">
+                        </mat-input-container>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="ville" type="text" placeholder="Ville">
+                        </mat-input-container>
+                        <span fxFlex="1"></span>
+                        <mat-input-container floatPlaceholder="auto" fxFlex>
+                                <input matInput formControlName="pays" type="text" placeholder="Pays">
+                        </mat-input-container>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button class="submit-button" type="submit">
+                                <mat-icon>done</mat-icon>
+                                <span>Valider</span>
+                        </button>
+                        <span fxFlex="1"></span>
+                        <button mat-raised-button (click)="cancel()">
+                                <mat-icon>clear</mat-icon>
+                                <span>Annuler</span>
+                        </button>
+                </div>
+        </form>
+</div>

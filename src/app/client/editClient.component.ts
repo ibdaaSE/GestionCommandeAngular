@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'app/services/client.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IClient } from 'app/shared/models';
 import { MatSnackBar } from '@angular/material';
 
@@ -13,8 +13,8 @@ import { MatSnackBar } from '@angular/material';
 export class EditClientComponent implements OnInit {
 
     clientForm: FormGroup;
-    raisonSociale = new FormControl(); responsable = new FormControl();
-    adresse = new FormControl(); email = new FormControl();
+    raisonSociale = new FormControl('', Validators.required); responsable = new FormControl();
+    adresse = new FormControl(); email = new FormControl('', Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
 

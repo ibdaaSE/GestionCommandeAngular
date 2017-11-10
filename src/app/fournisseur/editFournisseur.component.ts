@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { FournisseurService } from 'app/services/fournisseur.service';
 import { IFournisseur } from 'app/shared/models';
@@ -13,8 +13,8 @@ import { IFournisseur } from 'app/shared/models';
 export class EditFournisseurComponent implements OnInit {
 
     fournisseurForm: FormGroup;
-    raisonSociale = new FormControl(); responsable = new FormControl();
-    adresse = new FormControl(); email = new FormControl();
+    raisonSociale = new FormControl('', Validators.required); responsable = new FormControl();
+    adresse = new FormControl(); email = new FormControl('', Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
 
