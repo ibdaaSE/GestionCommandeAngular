@@ -85,6 +85,5 @@ export class CreateProduitComponent implements OnInit {
         this.addProduitEvent.emit(newProduit);
         this.selectedFournisseur = null;
         this.produitForm.reset();
-        this.produitForm.clearAsyncValidators();
     }
 }
