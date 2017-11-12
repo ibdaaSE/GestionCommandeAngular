@@ -35,7 +35,7 @@ export class ClientService {
     createClient(client: IClient): Observable<IClient> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/clients', client, options).map((response: Response) => <IClient>response.json());;
+        return this.http.post('/api/clients', client, options).map((response: Response) => <IClient>response.json());
     }
 
     editClient(client: IClient): Observable<IClient> {

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 import { RouterModule } from "@angular/router";
 import { appRoutes } from "routes";
@@ -19,12 +19,17 @@ import { FournisseurListComponent } from 'app/fournisseur/fournisseurList.compon
 import { FournisseurService } from 'app/services/fournisseur.service';
 import { CreateFournisseurComponent } from 'app/fournisseur/createFournisseur.component';
 import { EditFournisseurComponent } from 'app/fournisseur/editFournisseur.component';
+import { CreateCommandeComponent } from 'app/commande/createCommande.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CreateProduitComponent } from 'app/commande/createProduit.component';
+import { ProduitInfoComponent } from 'app/commande/produitInfo.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
-    FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent
+    FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent,
+    CreateCommandeComponent, CreateProduitComponent, ProduitInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,7 @@ import { EditFournisseurComponent } from 'app/fournisseur/editFournisseur.compon
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, 
-    MatCardModule, MatMenuModule
+    MatCardModule, MatMenuModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
   ],
   providers: [ClientService,FournisseurService],
   bootstrap: [AppComponent]

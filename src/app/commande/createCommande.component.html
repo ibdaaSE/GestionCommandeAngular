@@ -1,0 +1,49 @@
+<form [formGroup]="commandeForm" (ngSubmit)="createCommande(commandeForm.value)">
+    <div *ngIf="selectedClient">
+        <p>{{ selectedClient.raisonSociale }}</p>
+        <button mat-button (click)="clearSelectedClient()">X</button>
+    </div>
+    <mat-form-field *ngIf="!selectedClient">
+        <input type="text" placeholder="Client" matInput [formControl]="searchClientForm" [matAutocomplete]="auto" autofocus>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let client of filtredClients | async" [value]="client">
+                {{ client.raisonSociale }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="numero" type="text" placeholder="N° Commande">
+    </mat-input-container>
+    <mat-form-field>
+        <input matInput [matDatepicker]="dateCommandePicker" placeholder="Date commande" formControlName="dateCommande">
+        <mat-datepicker-toggle matSuffix [for]="dateCommandePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateCommandePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="montantHT" type="number" placeholder="Montant-HT">
+    </mat-input-container>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="montantTTC" type="number" placeholder="Montant-TTC">
+    </mat-input-container>
+    <mat-form-field>
+        <input matInput [matDatepicker]="delaiLivraisonPicker" placeholder="Délai livraison" formControlName="delaiLivraison">
+        <mat-datepicker-toggle matSuffix [for]="delaiLivraisonPicker"></mat-datepicker-toggle>
+        <mat-datepicker #delaiLivraisonPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="refCommandeClient" type="text" placeholder="Réf. de la Commande du Client">
+    </mat-input-container>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="modePayement" type="text" placeholder="Mode de payement">
+    </mat-input-container>
+    <button mat-raised-button class="submit-button" type="submit">
+        <mat-icon>done</mat-icon>
+        <span>Valider</span>
+    </button>
+</form>
+<create-produit (addProduitEvent)="addProduit($event)"></create-produit>
+<div *ngFor="let produit of produits">
+    <produit-info [produit]="produit" (deleteProduit)="deletedProduit($event)"></produit-info>
+</div>
+<p>Total des achats HT : {{totalAchatsHT | number : '1.2-2'}}</p>
+<p>Total des achats TTC : {{totalAchatsTTC | number : '1.2-2'}}</p>

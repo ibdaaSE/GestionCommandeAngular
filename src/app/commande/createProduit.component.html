@@ -1,0 +1,32 @@
+<form [formGroup]="produitForm" (ngSubmit)="createProduit(produitForm.value)">
+    <div *ngIf="selectedFournisseur">
+        <p>{{ selectedFournisseur.raisonSociale }}</p>
+        <button mat-button (click)="clearSelectedFournisseur()">X</button>
+    </div>
+    <mat-form-field *ngIf="!selectedFournisseur">
+        <input type="text" placeholder="Fournisseur" matInput [formControl]="searchFournisseurForm" [matAutocomplete]="auto" autofocus>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let fournisseur of filtredFournisseurs | async" [value]="fournisseur">
+                {{ fournisseur.raisonSociale }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="produits" type="text" placeholder="Produits">
+    </mat-input-container>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Délai" formControlName="delai">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="montantHT" type="number" placeholder="Montant-HT">
+    </mat-input-container>
+    <mat-input-container floatPlaceholder="auto">
+        <input matInput formControlName="montantTTC" type="number" placeholder="MontantTTC">
+    </mat-input-container>
+    <button mat-raised-button class="submit-button" type="submit">
+        <mat-icon>add</mat-icon>
+        <span>Ajouter</span>
+    </button>
+</form>

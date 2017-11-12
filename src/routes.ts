@@ -5,6 +5,7 @@ import { CreateClientComponent } from 'app/client/createClient.component';
 import { FournisseurListComponent } from 'app/fournisseur/fournisseurList.component';
 import { CreateFournisseurComponent } from 'app/fournisseur/createFournisseur.component';
 import { EditFournisseurComponent } from 'app/fournisseur/editFournisseur.component';
+import { CreateCommandeComponent } from 'app/commande/createCommande.component';
 
 
 export const appRoutes: Routes = [
@@ -14,7 +15,6 @@ export const appRoutes: Routes = [
     { path: 'fournisseurs/create', component: CreateFournisseurComponent },
     { path: 'fournisseurs/edit/:id', component: EditFournisseurComponent },
     { path: 'fournisseurs', component: FournisseurListComponent },
-    { path: '', redirectTo: '/clients', pathMatch: 'full' }
-
-
+    { path: 'commandes/createCommande', component: CreateCommandeComponent },
+    { path: '', redirectTo: 'commandes/createCommande', pathMatch: 'full' }
 ]
