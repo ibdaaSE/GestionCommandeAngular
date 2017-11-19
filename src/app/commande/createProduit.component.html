@@ -1,9 +1,15 @@
-<form [formGroup]="produitForm" (ngSubmit)="createProduit(produitForm.value)">
-    <div *ngIf="selectedFournisseur">
-        <p>{{ selectedFournisseur.raisonSociale }}</p>
-        <button mat-button (click)="clearSelectedFournisseur()">X</button>
+<form [formGroup]="produitForm" (ngSubmit)="createProduit(produitForm.value)" fxLayout="row" fxLayoutAlign="center center">
+    <span fxFlex="10px"></span>
+    <div *ngIf="selectedFournisseur" fxFlex fxLayout="row" fxLayoutAlign=" center">
+        <p>Fournisseur : {{ selectedFournisseur.raisonSociale }}
+            <br>
+            <span *ngIf="selectedFournisseur.responsable">Responsable : {{ selectedFournisseur.responsable }}</span>
+        </p>
+        <span fxFlex></span>
+        <button mat-button (click)="clearSelectedFournisseur()" fxFlex="40px" matTooltip="Annuler la sélection de ce fournisseur" matTooltipPosition="after">X</button>
+        <span fxFlex="10px"></span>
     </div>
-    <mat-form-field *ngIf="!selectedFournisseur">
+    <mat-form-field *ngIf="!selectedFournisseur" fxFlex>
         <input type="text" placeholder="Fournisseur" matInput [formControl]="searchFournisseurForm" [matAutocomplete]="auto" autofocus>
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let fournisseur of filtredFournisseurs | async" [value]="fournisseur">
@@ -11,22 +17,27 @@
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-    <mat-input-container floatPlaceholder="auto">
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex>
         <input matInput formControlName="produits" type="text" placeholder="Produits">
     </mat-input-container>
-    <mat-form-field>
+    <span fxFlex="10px"></span>
+    <mat-form-field fxFlex="150px">
         <input matInput [matDatepicker]="picker" placeholder="Délai" formControlName="delai">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-input-container floatPlaceholder="auto">
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
         <input matInput formControlName="montantHT" type="number" placeholder="Montant-HT">
     </mat-input-container>
-    <mat-input-container floatPlaceholder="auto">
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
         <input matInput formControlName="montantTTC" type="number" placeholder="MontantTTC">
     </mat-input-container>
-    <button mat-raised-button class="submit-button" type="submit">
+    <span fxFlex="10px"></span>
+    <button mat-raised-button class="submit-button" type="submit" fxFlex="40px">
         <mat-icon>add</mat-icon>
-        <span>Ajouter</span>
     </button>
+    <span fxFlex="10px"></span>
 </form>

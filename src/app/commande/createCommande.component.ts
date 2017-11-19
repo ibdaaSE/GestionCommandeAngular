@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
-import { IClient, IProduit, ICommande } from 'app/shared/models';
+import { IClient, IProduit, ICommande, IFournisseur } from 'app/shared/models';
 import { ClientService } from 'app/services/client.service';
-import { Http, RequestOptions, Response,Headers } from '@angular/http';
+import { Http, RequestOptions, Response, Headers } from '@angular/http';
 
 @Component({
     selector: 'create-commande',
@@ -89,8 +89,7 @@ export class CreateCommandeComponent implements OnInit {
 
     deletedProduit(produitToDelete: IProduit) {
         this.produits = this.produits.filter((produit: IProduit) =>
-            produit.fournisseur.id != produitToDelete.fournisseur.id)
-        console.log(this.produits);
+            produit.fournisseur.id != produitToDelete.fournisseur.id);
     }
 
     createCommande(formValues) {
@@ -103,15 +102,22 @@ export class CreateCommandeComponent implements OnInit {
             delaiLivraison: formValues.delaiLivraison,
             refCommandeClient: formValues.refCommandeClient,
             modePayement: formValues.modePayement,
+            totalAchatHT : this.totalAchatsHT,
+            totalAchatTTC : this.totalAchatsTTC,
             client: this.selectedClient
         }
+        this.produits.map((prod:IProduit)=>{
+            let fournisseur;
+            fournisseur = {'id' : prod.fournisseur.id};
+            prod.fournisseur = fournisseur;
+        })
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post('/api/createCommande', {'commande' : newCommande, 'produits' : this.produits} , options).
-        map((response: Response) => response.json()).subscribe();
-        console.log()
+        this.http.post('/api/createCommande', { 'commande': newCommande, 'produits': this.produits }, options).
+            map((response: Response) => response.json()).subscribe();
 
         this.selectedClient = null;
         this.commandeForm.reset();
+        this.produits = [];
     }
 }

@@ -1,14 +1,20 @@
 <div class="main-container">
-  <div class="main-nav-bar" fxFlex="50px" fxLayout="column" fxLayoutAlign="start none">
+  <div *ngIf="!isHomePage()" class="main-nav-bar" fxFlex="50px" fxLayout="column" fxLayoutAlign="start none">
     <span class="logo-container" fxFlex="60px"> </span>
-    <button mat-button [routerLink]="['/clients']" routerLinkActive="active-module" matTooltip="Annuaire des clients" matTooltipPosition="after" >
-        <mat-icon>person_pin</mat-icon>
+    <span class="separator" fxFlex="1px"> </span>
+    <button mat-button [routerLink]="['/clients']" routerLinkActive="active-module" matTooltip="Annuaire des clients" matTooltipPosition="after">
+      <mat-icon>person_pin</mat-icon>
     </button>
-    <button mat-button [routerLink]="['/fournisseurs']" routerLinkActive="active-module" matTooltip="Annuaire des fournisseurs" matTooltipPosition="after" >
-        <mat-icon>supervisor_account</mat-icon>
+    <button mat-button [routerLink]="['/fournisseurs']" routerLinkActive="active-module" matTooltip="Annuaire des fournisseurs"
+      matTooltipPosition="after">
+      <mat-icon>supervisor_account</mat-icon>
     </button>
-    <button mat-button [routerLink]="['/commandes']" matTooltip="Gestion des commandes" matTooltipPosition="after" >
-        <mat-icon>assignment</mat-icon>
+    <button mat-button [routerLink]="['/commandes']" matTooltip="Gestion des commandes" matTooltipPosition="after">
+      <mat-icon>assignment</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <button mat-button (click)="logout()" matTooltip="Déconnexion" matTooltipPosition="after">
+      <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>
   <div fxFlex>

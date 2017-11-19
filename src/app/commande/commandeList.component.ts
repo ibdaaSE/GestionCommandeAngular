@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientService } from 'app/services/client.service';
-import { IClient } from 'app/shared/models';
+import { ICommande } from 'app/shared/models';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { CommandeService } from 'app/services/commande.service';
 
 @Component({
-    selector: 'client-list',
-    templateUrl: './clientList.component.html',
-    styleUrls: ['./clientList.component.css']
+    selector: 'commande-list',
+    templateUrl: './commandeList.component.html',
+    styleUrls: ['./commandeList.component.css']
 })
-export class ClientListComponent implements OnInit {
+export class CommandeListComponent implements OnInit {
 
     filter: String;
     pageIndex: number;
     pageLength: number;
 
     count: number;
-    clients: IClient[];
-    selectedClient: IClient;
+    filtredList: ICommande[];
+    selected: ICommande;
 
-    constructor(private clientService: ClientService, private snackBar: MatSnackBar,
+    constructor(private commandeService: CommandeService, private snackBar: MatSnackBar,
         private router: Router) { }
 
     ngOnInit() {
@@ -27,34 +27,34 @@ export class ClientListComponent implements OnInit {
         this.pageIndex = 0;
         this.pageLength = 20;
         this.count = 0;
-        this.getClients();
+        this.getFiltredList();
         this.updatecount();
     }
 
-    getClients() {
-        let observable = this.clientService.getClients(this.filter, this.pageIndex);
+    getFiltredList() {
+        let observable = this.commandeService.getFiltredList(this.filter, this.pageIndex);
         observable.subscribe(clients => {
-            this.clients = clients;
+            this.filtredList = clients;
         });
     }
 
     setFilter(filter: String) {
         this.filter = filter;
         this.pageIndex = 0;
-        this.getClients();
+        this.getFiltredList();
         this.updatecount();
     }
 
     getNextPage() {
         if (!this.hasNextPage()) return;
         this.pageIndex = (this.pageIndex + this.pageLength);
-        this.getClients();
+        this.getFiltredList();
     }
 
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
         this.pageIndex = (this.pageIndex - this.pageLength);
-        this.getClients();
+        this.getFiltredList();
     }
 
     hasNextPage() {
@@ -66,18 +66,18 @@ export class ClientListComponent implements OnInit {
     }
 
     updatecount() {
-        let observable = this.clientService.count(this.filter);
+        let observable = this.commandeService.count(this.filter);
         observable.subscribe(count => {
             this.count = +count;
         });
     }
 
-    deletedClients(message: string) {
-        this.getClients();
+    deleted(message: string) {
+        this.getFiltredList();
         this.snackBar.open(message, null, { duration: 2000 });
     }
 
     goToCreate() {
-        this.router.navigate(['/clients/create']);
+        this.router.navigate(['/commandes/create']);
     }
 }

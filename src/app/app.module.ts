@@ -23,13 +23,20 @@ import { CreateCommandeComponent } from 'app/commande/createCommande.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CreateProduitComponent } from 'app/commande/createProduit.component';
 import { ProduitInfoComponent } from 'app/commande/produitInfo.component';
+import { CommandeListComponent } from 'app/commande/commandeList.component';
+import { CommandeService } from 'app/services/commande.service';
+import { CommandeInfoComponent } from 'app/commande/commandeInfo.component';
+import { HomeComponent } from 'app/user/home.component';
+import { AuthenticationService } from 'app/services/authentication.service';
+import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service';
 
 @NgModule({
   declarations: [
     AppComponent, 
     ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
     FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent,
-    CreateCommandeComponent, CreateProduitComponent, ProduitInfoComponent
+    CommandeListComponent, CommandeInfoComponent, CreateCommandeComponent, CreateProduitComponent, 
+    ProduitInfoComponent, HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,7 @@ import { ProduitInfoComponent } from 'app/commande/produitInfo.component';
     MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, 
     MatCardModule, MatMenuModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
   ],
-  providers: [ClientService,FournisseurService],
+  providers: [AuthenticationService, CanActivateAuthGuard, ClientService,FournisseurService, CommandeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

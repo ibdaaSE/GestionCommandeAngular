@@ -1,47 +1,66 @@
 import { Injectable } from '@angular/core';
-import { Http, Response,Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IClient } from 'app/shared/models';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 
 @Injectable()
 export class ClientService {
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
     getClients(filter: String, pageIndex: number): Observable<IClient[]> {
-        console.log('/api/filteredClients?filter=' + filter + '&pageIndex=' + pageIndex);
-
-        return this.http.get('/api/filteredClients?filter=' + filter + '&pageIndex=' + pageIndex)
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/filteredClients?filter=' + filter + '&pageIndex=' + pageIndex, { headers: headers })
             .map((response: Response) => response.json());
     }
 
     count(filter: String): Observable<number> {
-        return this.http.get('/api/filteredClients/count?filter=' + filter)
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/filteredClients/count?filter=' + filter, { headers: headers })
             .map((response: Response) => response.json());
     }
 
     deleteClient(id: number): Observable<any> {
-        return this.http.delete('/api/clients/' + id);
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.delete('/api/clients/' + id, { headers: headers });
     }
 
     getClient(id: number): Observable<IClient> {
-        return this.http.get('/api/clients/' + id).map((response: Response) => response.json());
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/clients/' + id, { headers: headers }).map((response: Response) => response.json());
     }
 
     createClient(client: IClient): Observable<IClient> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/clients', client, options).map((response: Response) => <IClient>response.json());
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.post('/api/clients', client, { headers: headers }).map((response: Response) => <IClient>response.json());
     }
 
     editClient(client: IClient): Observable<IClient> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.put('/api/clients/' + client.id, client, options).map((response: Response) => <IClient>response.json());
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.put('/api/clients/' + client.id, client, { headers: headers }).map((response: Response) => <IClient>response.json());
     }
 
 }

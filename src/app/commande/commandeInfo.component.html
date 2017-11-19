@@ -1,0 +1,21 @@
+<div class="row-container" fxLayout="row" fxLayoutAlign=" center">
+    <p fxFlex="150px">{{commande.numero}}</p>
+    <p fxFlex>{{commande?.client?.raisonSociale}}</p>
+    <p fxFlex="150px">{{commande.dateCommande | date: 'dd/MM/yyyy'}}</p>
+    <p fxFlex="150px">{{commande.delaiLivraison | date: 'dd/MM/yyyy'}}</p>
+    <p class="right-alignement" fxFlex="150px">{{commande.montantHT | number : '1.2-2'}} €</p>
+    <p class="right-alignement" fxFlex="150px">{{commande.montantTTC | number : '1.2-2'}} €</p>
+    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="commandeMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #commandeMenu="matMenu">
+        <button mat-menu-item (click)="edit()">
+            <mat-icon>edit</mat-icon>
+            <span>Modifier</span>
+        </button>
+        <button mat-menu-item (click)="delete()">
+            <mat-icon>delete</mat-icon>
+            <span>Supprimer</span>
+        </button>
+    </mat-menu>
+</div>

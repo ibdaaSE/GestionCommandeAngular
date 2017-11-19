@@ -40,6 +40,7 @@ export class FournisseurListComponent implements OnInit {
 
     setFilter(filter : String){
         this.filter = filter;
+        this.pageIndex = 0;
         this.getFournisseurs();
         this.updatecount();
     }

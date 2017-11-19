@@ -16,7 +16,6 @@ export class ProduitInfoComponent implements OnInit {
     ngOnInit() { }
 
     deleteProduit(){
-        console.log(this.produit.produits);
         this.deleteEvent.emit(this.produit);
     }
 }

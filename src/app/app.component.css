@@ -5,8 +5,8 @@
     padding: 0px;
 }
 
-.logo-container{
-    background-color: #0288d1;
+.separator{
+    background-color: #333333;
 }
 
 .main-nav-bar{
@@ -24,8 +24,12 @@
     height: 50px;
 }
 
+.main-nav-bar button:hover{
+    background-color: #202020;
+}
+
 .active-module{
     background-color: rgb(75, 75, 75);
     border-radius: 0px;
-    border-left: 3px #ffc107 solid;
+    border-left: 3px #29b6f6 solid;
 }

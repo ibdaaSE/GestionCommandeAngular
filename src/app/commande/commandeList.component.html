@@ -1,6 +1,10 @@
 <div class="module-container" fxLayout="column" fxLayoutAlign=" none">
-    <div class="header-container" fxFlex="60px" fxLayout="row" fxLayoutAlign=" center">
-        <h2 fxFlex>Mes fournisseurs</h2>
+    <div *ngFor="let item of (scadaInfo | async)?.Values ">
+        <p>Nom   : {{item.Name}}</p>
+        <p>Value : {{item.Value}}</p>
+    </div>
+    <!--<div class="header-container" fxFlex="60px" fxLayout="row" fxLayoutAlign=" center">
+        <h2 fxFlex>Mes commandes</h2>
         <div class="searchField-container" fxLayout="row" fxLayoutAlign=" center">
             <input class="searchField" fxFlex="500px" type="text" #searchField (keyup.enter)="setFilter(searchField.value)" placeholder="Rechercher">
             <mat-icon>search</mat-icon>
@@ -12,7 +16,7 @@
             <p *ngIf="count != 0 && count < pageLength">
                 {{pageIndex +1}}-{{pageIndex + count}} sur {{count}}
             </p>
-            <p *ngIf="pageIndex + pageLength > count">
+            <p *ngIf="count >= pageLength && pageIndex + pageLength > count">
                 {{pageIndex +1}}-{{count}} sur {{count}}
             </p>
             <button [disabled]="!hasPreviousPage()" (click)="getPreviousPage()" mat-button (click)="onClick" matTooltip="Page précédante">
@@ -25,28 +29,28 @@
     </div>
     <div class="content-container" fxLayout="column" fxLayoutAlign=" none">
         <div class="actions-container" fxLayout="row" fxLayoutAlign=" center">
-            <button class="add-button" mat-mini-fab (click)="goToCreate()" matTooltip="Nouveau fournisseur" matTooltipPosition="after">
+            <button class="add-button" mat-mini-fab (click)="goToCreate()" matTooltip="Nouvelle commande" matTooltipPosition="after">
                 <mat-icon>add</mat-icon>
             </button>
-            <div fxFlex></div>
-            <button mat-icon-button class="mat-elevation-z0" matTooltip="Rafraîchir la liste" matTooltipPosition="before" (click)="getFournisseurs()">
+            <span fxFlex></span>
+            <span fxFlex></span>
+            <button mat-icon-button class="mat-elevation-z0" matTooltip="Rafraîchir la liste" matTooltipPosition="before" (click)="getClients()">
                 <mat-icon>autorenew</mat-icon>
             </button>
         </div>
         <div class="table-header" fxLayout="row">
-            <h5 fxFlex>Fournisseur</h5>
-            <h5 fxFlex>Adresse</h5>
-            <h5 fxFlex="100px">CP</h5>
-            <h5 fxFlex="100px">Ville</h5>
-            <h5 fxFlex="100px">Pays</h5>
-            <h5 fxFlex>Responsable</h5>
-            <h5 fxFlex="150px">E-mail</h5>
+            <h5 fxFlex="150px">N° Commande</h5>
+            <h5 fxFlex>Client</h5>
+            <h5 fxFlex="150px">Date commande</h5>
+            <h5 fxFlex="150px">Délai livraison</h5>
+            <h5 fxFlex="150px">Montant-HT</h5>
+            <h5 fxFlex="150px">Montant-TTC</h5>
             <span fxFlex="46px"></span>
         </div>
         <div class="table-content" fxLayout="column" fxLayoutAlign=" none">
-            <div class="table-row" *ngFor="let fournisseur of fournisseurs">
-                <fournisseur-info [fournisseur]="fournisseur" (deleteEvent)="deletedFournisseurs($event)"></fournisseur-info>
+            <div class="table-row" *ngFor="let commande of filtredList">
+                <commande-info [commande]="commande" (deleteEvent)="deleted($event)"></commande-info>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>

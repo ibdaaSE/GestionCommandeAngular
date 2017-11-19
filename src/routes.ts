@@ -6,15 +6,20 @@ import { FournisseurListComponent } from 'app/fournisseur/fournisseurList.compon
 import { CreateFournisseurComponent } from 'app/fournisseur/createFournisseur.component';
 import { EditFournisseurComponent } from 'app/fournisseur/editFournisseur.component';
 import { CreateCommandeComponent } from 'app/commande/createCommande.component';
+import { CommandeListComponent } from 'app/commande/commandeList.component';
+import { HomeComponent } from 'app/user/home.component';
+import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service';
 
 
 export const appRoutes: Routes = [
-    { path: 'clients/create', component: CreateClientComponent },
-    { path: 'clients/edit/:id', component: EditClientComponent },
-    { path: 'clients', component: ClientListComponent },
-    { path: 'fournisseurs/create', component: CreateFournisseurComponent },
-    { path: 'fournisseurs/edit/:id', component: EditFournisseurComponent },
-    { path: 'fournisseurs', component: FournisseurListComponent },
-    { path: 'commandes/createCommande', component: CreateCommandeComponent },
-    { path: '', redirectTo: 'commandes/createCommande', pathMatch: 'full' }
+    { path: 'home', component: HomeComponent },
+    { path: 'clients/create', component: CreateClientComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'clients/edit/:id', component: EditClientComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'clients', component: ClientListComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'fournisseurs/create', component: CreateFournisseurComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'fournisseurs/edit/:id', component: EditFournisseurComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'fournisseurs', component: FournisseurListComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'commandes/create', component: CreateCommandeComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'commandes', component: CommandeListComponent, canActivate: [CanActivateAuthGuard]},
+    { path: '', redirectTo: '/home', pathMatch: 'full'}
 ]

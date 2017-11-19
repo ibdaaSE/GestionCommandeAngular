@@ -4,44 +4,63 @@ import { Observable } from 'rxjs/Observable';
 import { IFournisseur } from 'app/shared/models';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 
 @Injectable()
 export class FournisseurService {
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
     getFournisseurs(filter: String, pageIndex: number): Observable<IFournisseur[]> {
-        console.log('/api/filteredFournisseurs?filter=' + filter + '&pageIndex=' + pageIndex);
-
-        return this.http.get('/api/filteredFournisseurs?filter=' + filter + '&pageIndex=' + pageIndex)
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/filteredFournisseurs?filter=' + filter + '&pageIndex=' + pageIndex, { headers: headers })
             .map((response: Response) => response.json());
     }
 
     count(filter: String): Observable<number> {
-        return this.http.get('/api/filteredFournisseurs/count?filter=' + filter)
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/filteredFournisseurs/count?filter=' + filter, { headers: headers })
             .map((response: Response) => response.json());
     }
 
     deleteFournisseur(id: number): Observable<any> {
-        return this.http.delete('/api/fournisseurs/' + id);
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.delete('/api/fournisseurs/' + id, { headers: headers });
     }
 
     getFournisseur(id: number): Observable<IFournisseur> {
-        return this.http.get('/api/fournisseurs/' + id).map((response: Response) => response.json());
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/fournisseurs/' + id, { headers: headers }).map((response: Response) => response.json());
     }
 
     createFournisseur(fournissseur: IFournisseur): Observable<IFournisseur> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/fournisseurs', fournissseur, options).map((response: Response) => <IFournisseur>response.json());;
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.post('/api/fournisseurs', fournissseur, { headers: headers }).map((response: Response) => <IFournisseur>response.json());;
     }
 
     editFournisseur(fournisseur: IFournisseur): Observable<IFournisseur> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.put('/api/fournisseurs/' + fournisseur.id, fournisseur, options).map((response: Response) => <IFournisseur>response.json());
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.put('/api/fournisseurs/' + fournisseur.id, fournisseur, { headers: headers }).map((response: Response) => <IFournisseur>response.json());
     }
 
 }
