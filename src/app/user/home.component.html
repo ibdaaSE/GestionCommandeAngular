@@ -1,14 +1,27 @@
-<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" fxLayout="row" fxLayoutAlign="center center">
-    <mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="userName" type="text" required placeholder="Nom d'utilisateur">
-    </mat-input-container>
-
-    <mat-input-container floatPlaceholder="auto">
-        <input matInput formControlName="password" type="password" required placeholder="Mot de passe">
-    </mat-input-container>
-
-    <button mat-raised-button type="submit">
-        <mat-icon>done</mat-icon>
-        <span>Valider</span>
-    </button>
-</form>
+<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-card fxFlex="400px">
+            <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" fxLayout="column" fxLayout="column" fxLayoutAlign="start none">
+                <h1>Athentification</h1>
+                <p class="subtitle">Veuillez entrer les informations de votre compte utilisateur</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <mat-input-container floatPlaceholder="auto" fxFlexFill>
+                    <input matInput formControlName="userName" type="text" placeholder="Nom d'utilisateur" autofocus>
+                </mat-input-container>
+                <mat-input-container floatPlaceholder="auto" fxFlexFill>
+                    <input matInput formControlName="password" type="password" placeholder="Mot de passe">
+                </mat-input-container>
+                <br>
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-raised-button class="submit-button" type="submit">
+                        <mat-icon>done</mat-icon>
+                        <span>Se connecter</span>
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

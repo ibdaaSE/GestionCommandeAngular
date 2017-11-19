@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'app/services/authentication.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'home',
@@ -12,20 +13,19 @@ export class HomeComponent implements OnInit {
 
     loginForm: FormGroup;
 
-    userName = new FormControl('', Validators.required); 
+    userName = new FormControl();
     password = new FormControl();
-    
+
     loading = false;
     error = '';
 
     constructor(
-        private router: Router, private authenticationService: AuthenticationService) { 
-
-        }
+        private router: Router, private authenticationService: AuthenticationService, private snackBar: MatSnackBar) { 
+    }
 
     ngOnInit() {
         this.loginForm = new FormGroup({
-            userName: this.userName, 
+            userName: this.userName,
             password: this.password
         });
         // reset login status
@@ -33,20 +33,29 @@ export class HomeComponent implements OnInit {
     }
 
     login(formValues) {
+        if(!formValues.userName || !formValues.password){
+            this.snackBar.open("Nom d'utilisateur ou mot de passe vide", null, { duration: 2000 });
+            return;
+        }
         this.loading = true;
         this.authenticationService.login(formValues.userName, formValues.password)
-            .subscribe(result => {
+            .subscribe(
+            result => {
                 if (result === true) {
                     // login successful
                     this.router.navigate(['/clients']);
+                    this.snackBar.open(formValues.userName + " connecté avec success", null, { duration: 2000 });
                 } else {
                     // login failed
-                    this.error = 'Username or password is incorrect';
+                    this.error = "Nom d'utilisateur ou mot de passe incorrect";
                     this.loading = false;
+                    this.snackBar.open("Nom d'utilisateur ou mot de passe incorrect", null, { duration: 2000 });
                 }
-            }, error => {
-              this.loading = false;
-              this.error = error;
+            },
+            error => {
+                this.loading = false;
+                this.error = error;
+                this.snackBar.open("Nom d'utilisateur ou mot de passe incorrect", null, { duration: 2000 });
             });
     }
 }

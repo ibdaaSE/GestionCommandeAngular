@@ -22,10 +22,10 @@ export class ClientInfoComponent implements OnInit {
             subscribe((val) => {
             },
             (err) => {
-                this.deleteEvent.emit("failed");
+                this.deleteEvent.emit("Impossible de supprimer ce client");
             },
             () => {
-                this.deleteEvent.emit("success");
+                this.deleteEvent.emit("Supprimé avec success");
             });
     }
 
