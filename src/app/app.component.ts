@@ -7,24 +7,37 @@ import { AuthenticationService } from 'app/services/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+
+  previleges: any[];
 
   constructor(
-    private router: Router, private authenticationService: AuthenticationService) { 
-    }
+    private router: Router, private authenticationService: AuthenticationService) {
+  }
 
-    ngOnInit() {
-      //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-      //Add 'implements OnInit' to the class.
-      console.log()
-    }
+  ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.authenticationService.getPrevileges().subscribe(
+      (val) => {
+        this.previleges = val;
+      }
+    )
+  }
 
-    logout(){
-      this.authenticationService.logout();
-      this.router.navigate(['']);
-    }
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['']);
+  }
 
-    isHomePage():boolean{
-      return this.router.url == "/" || this.router.url == "/home";
-    }
+  isHomePage(): boolean {
+    return this.router.url == "/" || this.router.url == "/home";
+  }
+
+  hasPrevilege(previlege: String): boolean {
+    let previleges = [];
+    previleges.push(this.previleges);
+    previleges.filter((val) => val.authority == previlege);
+    return previleges.length == 1;
+  }
 }

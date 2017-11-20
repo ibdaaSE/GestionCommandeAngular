@@ -47,4 +47,13 @@ export class AuthenticationService {
         var token: String = this.getToken();
         return token && token.length > 0;
     }
+
+    getPrevileges() {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.getToken()
+        });
+        return this.http.get('/api/previleges', { headers: headers })
+            .map((response: Response) => response.json());
+    }
 }
