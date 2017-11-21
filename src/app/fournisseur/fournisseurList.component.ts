@@ -14,8 +14,11 @@ export class FournisseurListComponent implements OnInit {
     filter: String;
     pageIndex: number;
     pageLength: number;
-
     count: number;
+
+    nextPageEnabled = true;
+    previousPageEnabled = true;
+
     fournisseurs: IFournisseur[];
     selectedFournisseur: IFournisseur;
 
@@ -27,22 +30,23 @@ export class FournisseurListComponent implements OnInit {
         this.pageIndex = 0;
         this.pageLength = 20;
         this.count = 0;
-        this.getFournisseurs();
         this.updatecount();
+        this.getFournisseurs();
     }
 
     getFournisseurs() {
         let observable = this.fournisseurService.getFournisseurs(this.filter, this.pageIndex);
         observable.subscribe(fournisseurs => {
             this.fournisseurs = fournisseurs;
+            this.fillPositionPage();
         });
     }
 
     setFilter(filter : String){
         this.filter = filter;
         this.pageIndex = 0;
-        this.getFournisseurs();
         this.updatecount();
+        this.getFournisseurs();
     }
 
     getNextPage() {
@@ -51,18 +55,35 @@ export class FournisseurListComponent implements OnInit {
         this.getFournisseurs();
     }
 
+    getLastPage() {
+        if (!this.hasNextPage()) return;
+        this.pageIndex = this.count - this.pageLength;
+        this.getFournisseurs();
+    }
+
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
-        this.pageIndex = (this.pageIndex - this.pageLength);
+        this.pageIndex = (this.pageIndex - this.pageLength) < 0? 0 : this.pageIndex - this.pageLength;
+        this.getFournisseurs();
+    }
+
+    getFirstPage() {
+        if (!this.hasPreviousPage()) return;
+        this.pageIndex = 0;
         this.getFournisseurs();
     }
 
     hasNextPage() {
-        return (this.count >= (this.pageIndex + this.pageLength))
+        return (this.count > (this.pageIndex + this.pageLength))
     }
 
     hasPreviousPage() {
         return (this.pageIndex > 0)
+    }
+
+    fillPositionPage(){
+        this.nextPageEnabled = this.hasNextPage();
+        this.previousPageEnabled = this.hasPreviousPage();
     }
 
     updatecount() {

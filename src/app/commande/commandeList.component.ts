@@ -14,12 +14,15 @@ export class CommandeListComponent implements OnInit {
     filter: String;
     pageIndex: number;
     pageLength: number;
-
     count: number;
+
+    nextPageEnabled = true;
+    previousPageEnabled = true;
+
     filtredList: ICommande[];
     selected: ICommande;
 
-    constructor(private commandeService: CommandeService, private snackBar: MatSnackBar,
+    constructor(private service: CommandeService, private snackBar: MatSnackBar,
         private router: Router) { }
 
     ngOnInit() {
@@ -27,22 +30,23 @@ export class CommandeListComponent implements OnInit {
         this.pageIndex = 0;
         this.pageLength = 20;
         this.count = 0;
-        this.getFiltredList();
         this.updatecount();
+        this.getFiltredList();
     }
 
     getFiltredList() {
-        let observable = this.commandeService.getFiltredList(this.filter, this.pageIndex);
-        observable.subscribe(clients => {
-            this.filtredList = clients;
+        let observable = this.service.getFiltredList(this.filter, this.pageIndex);
+        observable.subscribe(newList => {
+            this.filtredList = newList;
+            this.fillPositionPage();
         });
     }
 
     setFilter(filter: String) {
         this.filter = filter;
         this.pageIndex = 0;
-        this.getFiltredList();
         this.updatecount();
+        this.getFiltredList();
     }
 
     getNextPage() {
@@ -51,22 +55,39 @@ export class CommandeListComponent implements OnInit {
         this.getFiltredList();
     }
 
+    getLastPage() {
+        if (!this.hasNextPage()) return;
+        this.pageIndex = this.count - this.pageLength;
+        this.getFiltredList();
+    }
+
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
-        this.pageIndex = (this.pageIndex - this.pageLength);
+        this.pageIndex = (this.pageIndex - this.pageLength) < 0? 0 : this.pageIndex - this.pageLength;
+        this.getFiltredList();
+    }
+
+    getFirstPage() {
+        if (!this.hasPreviousPage()) return;
+        this.pageIndex = 0;
         this.getFiltredList();
     }
 
     hasNextPage() {
-        return (this.count >= (this.pageIndex + this.pageLength))
+        return (this.count > (this.pageIndex + this.pageLength))
     }
 
     hasPreviousPage() {
         return (this.pageIndex > 0)
     }
 
+    fillPositionPage(){
+        this.nextPageEnabled = this.hasNextPage();
+        this.previousPageEnabled = this.hasPreviousPage();
+    }
+
     updatecount() {
-        let observable = this.commandeService.count(this.filter);
+        let observable = this.service.count(this.filter);
         observable.subscribe(count => {
             this.count = +count;
         });
