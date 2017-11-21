@@ -16,13 +16,13 @@ export class ClientListComponent implements OnInit {
     pageLength: number;
     count: number;
 
-    nextPageEnabled = false;
-    previousPageEnabled = false;
+    nextPageEnabled = true;
+    previousPageEnabled = true;
 
-    clients: IClient[];
-    selectedClient: IClient;
+    filtredList: IClient[];
+    selected: IClient;
 
-    constructor(private clientService: ClientService, private snackBar: MatSnackBar,
+    constructor(private service: ClientService, private snackBar: MatSnackBar,
         private router: Router) { }
 
     ngOnInit() {
@@ -31,13 +31,13 @@ export class ClientListComponent implements OnInit {
         this.pageLength = 20;
         this.count = 0;
         this.updatecount();
-        this.getClients();
+        this.getFiltredList();
     }
 
-    getClients() {
-        let observable = this.clientService.getClients(this.filter, this.pageIndex);
-        observable.subscribe(clients => {
-            this.clients = clients;
+    getFiltredList() {
+        let observable = this.service.getClients(this.filter, this.pageIndex);
+        observable.subscribe(newList => {
+            this.filtredList = newList;
             this.fillPositionPage();
         });
     }
@@ -46,23 +46,35 @@ export class ClientListComponent implements OnInit {
         this.filter = filter;
         this.pageIndex = 0;
         this.updatecount();
-        this.getClients();
+        this.getFiltredList();
     }
 
     getNextPage() {
         if (!this.hasNextPage()) return;
         this.pageIndex = (this.pageIndex + this.pageLength);
-        this.getClients();
+        this.getFiltredList();
+    }
+
+    getLastPage() {
+        if (!this.hasNextPage()) return;
+        this.pageIndex = this.count - this.pageLength;
+        this.getFiltredList();
     }
 
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
-        this.pageIndex = (this.pageIndex - this.pageLength);
-        this.getClients();
+        this.pageIndex = (this.pageIndex - this.pageLength) < 0? 0 : this.pageIndex - this.pageLength;
+        this.getFiltredList();
+    }
+
+    getFirstPage() {
+        if (!this.hasPreviousPage()) return;
+        this.pageIndex = 0;
+        this.getFiltredList();
     }
 
     hasNextPage() {
-        return (this.count >= (this.pageIndex + this.pageLength))
+        return (this.count > (this.pageIndex + this.pageLength))
     }
 
     hasPreviousPage() {
@@ -75,14 +87,14 @@ export class ClientListComponent implements OnInit {
     }
 
     updatecount() {
-        let observable = this.clientService.count(this.filter);
+        let observable = this.service.count(this.filter);
         observable.subscribe(count => {
             this.count = +count;
         });
     }
 
     deletedClients(message: string) {
-        this.getClients();
+        this.getFiltredList();
         this.snackBar.open(message, null, { duration: 2000 });
     }
 
