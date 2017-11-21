@@ -1,0 +1,20 @@
+<div class="row-container" fxLayout="row" fxLayoutAlign=" center">
+    <p fxFlex>{{user.username}}</p>
+    <p fxFlex>{{user.firstname}}</p>
+    <p fxFlex="100px">{{user.lastname}}</p>
+    <p fxFlex="100px">{{user.email}}</p>
+   
+    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="userMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="editUser()">
+            <mat-icon>edit</mat-icon>
+            <span>Modifier</span>
+        </button>
+        <button mat-menu-item (click)="deleteUser()">
+            <mat-icon>delete</mat-icon>
+            <span>Supprimer</span>
+        </button>
+    </mat-menu>
+</div>

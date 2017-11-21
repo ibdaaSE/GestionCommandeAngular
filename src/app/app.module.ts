@@ -29,6 +29,9 @@ import { CommandeInfoComponent } from 'app/commande/commandeInfo.component';
 import { HomeComponent } from 'app/user/home.component';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service';
+import { UserListComponent } from 'app/user/userList.component';
+import { UserService } from 'app/services/user.service';
+import { UserInfoComponent } from 'app/user/userInfo.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service'
     ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
     FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent,
     CommandeListComponent, CommandeInfoComponent, CreateCommandeComponent, CreateProduitComponent, 
+    UserListComponent,UserInfoComponent,
     ProduitInfoComponent, HomeComponent
   ],
   imports: [
@@ -49,7 +53,8 @@ import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service'
     MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, 
     MatCardModule, MatMenuModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
   ],
-  providers: [AuthenticationService, CanActivateAuthGuard, ClientService,FournisseurService, CommandeService],
+  providers: [AuthenticationService, CanActivateAuthGuard, ClientService,FournisseurService,
+              CommandeService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

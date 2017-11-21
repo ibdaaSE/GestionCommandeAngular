@@ -1,0 +1,28 @@
+<div class="module-container" fxLayout="column" fxLayoutAlign=" none">
+    <div class="header-container" fxFlex="60px" fxLayout="row" fxLayoutAlign=" center">
+        <h2 fxFlex>Mes Utilisateurs</h2>
+    </div>
+    <div class="content-container" fxLayout="column" fxLayoutAlign=" none">
+        <div class="actions-container" fxLayout="row" fxLayoutAlign=" center">
+            <button class="add-button" mat-mini-fab (click)="goToCreate()" matTooltip="Nouveau client" matTooltipPosition="after">
+                <mat-icon>add</mat-icon>
+            </button>
+            <div fxFlex></div>
+            <button mat-icon-button class="mat-elevation-z0" matTooltip="Rafraîchir la liste" matTooltipPosition="before" (click)="getClients()">
+                <mat-icon>autorenew</mat-icon>
+            </button>
+        </div>
+        <div class="table-header" fxLayout="row">
+            <h5 fxFlex>User</h5>
+            <h5 fxFlex>First Name</h5>
+            <h5 fxFlex="100px">Last Name</h5>
+            <h5 fxFlex="100px">Email</h5>
+            <span fxFlex="46px"></span>
+        </div>
+        <div class="table-content" fxLayout="column" fxLayoutAlign=" none">
+            <div class="table-row" *ngFor="let user of users">
+                <user-info [user]="user" (deleteEvent)="deletedUsers($event)"></user-info>
+            </div>
+        </div>
+    </div>
+</div>
