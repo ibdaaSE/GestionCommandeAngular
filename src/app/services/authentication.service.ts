@@ -4,9 +4,14 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AuthenticationService {
+
+    private previleges = new Subject<any>();
+    observedPrevileges = this.previleges.asObservable();
+
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
@@ -22,7 +27,7 @@ export class AuthenticationService {
                 if (token) {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-
+                    this.getPrevileges();
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -51,9 +56,11 @@ export class AuthenticationService {
     getPrevileges() {
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + this.getToken()
+            'Authorization': this.getToken()
         });
-        return this.http.get('/api/previleges', { headers: headers })
-            .map((response: Response) => response.json());
+        this.http.get('/api/previleges', { headers: headers })
+            .map((response: Response) => response.json()).subscribe(
+            (val) => { this.previleges.next(val); return val; }
+            );
     }
 }

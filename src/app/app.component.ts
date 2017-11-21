@@ -9,20 +9,23 @@ import { AuthenticationService } from 'app/services/authentication.service';
 })
 export class AppComponent implements OnInit {
 
-  previleges: any[];
+  previleges: any[] = [];
+
+  hasAccessClients = false;
+  hasAccessFournisseurs = false;
+  hasAccessCommandes = false;
 
   constructor(
     private router: Router, private authenticationService: AuthenticationService) {
+    this.authenticationService.observedPrevileges.subscribe((val) => {
+      this.previleges = val;
+      this.fillPrevileges();
+    })
   }
 
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.authenticationService.getPrevileges().subscribe(
-      (val) => {
-        this.previleges = val;
-      }
-    )
   }
 
   logout() {
@@ -35,9 +38,19 @@ export class AppComponent implements OnInit {
   }
 
   hasPrevilege(previlege: String): boolean {
+    if (this.previleges.length == 0) {
+      return false;
+    }
     let previleges = [];
-    previleges.push(this.previleges);
-    previleges.filter((val) => val.authority == previlege);
+    previleges = this.previleges.filter((val) => {
+      return val.authority == previlege
+    });
     return previleges.length == 1;
+  }
+
+  fillPrevileges(){
+    this.hasAccessClients = this.hasPrevilege("clients")
+    this.hasAccessFournisseurs = this.hasPrevilege("fournisseurs")
+    this.hasAccessCommandes = this.hasPrevilege("commandes")
   }
 }

@@ -14,8 +14,11 @@ export class ClientListComponent implements OnInit {
     filter: String;
     pageIndex: number;
     pageLength: number;
-
     count: number;
+
+    nextPageEnabled = false;
+    previousPageEnabled = false;
+
     clients: IClient[];
     selectedClient: IClient;
 
@@ -27,22 +30,23 @@ export class ClientListComponent implements OnInit {
         this.pageIndex = 0;
         this.pageLength = 20;
         this.count = 0;
-        this.getClients();
         this.updatecount();
+        this.getClients();
     }
 
     getClients() {
         let observable = this.clientService.getClients(this.filter, this.pageIndex);
         observable.subscribe(clients => {
             this.clients = clients;
+            this.fillPositionPage();
         });
     }
 
     setFilter(filter: String) {
         this.filter = filter;
         this.pageIndex = 0;
-        this.getClients();
         this.updatecount();
+        this.getClients();
     }
 
     getNextPage() {
@@ -63,6 +67,11 @@ export class ClientListComponent implements OnInit {
 
     hasPreviousPage() {
         return (this.pageIndex > 0)
+    }
+
+    fillPositionPage(){
+        this.nextPageEnabled = this.hasNextPage();
+        this.previousPageEnabled = this.hasPreviousPage();
     }
 
     updatecount() {

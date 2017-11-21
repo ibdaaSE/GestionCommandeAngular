@@ -15,10 +15,10 @@
             <p *ngIf="pageIndex + pageLength > count">
                 {{pageIndex +1}}-{{count}} sur {{count}}
             </p>
-            <button [disabled]="!hasPreviousPage()" (click)="getPreviousPage()" mat-button (click)="onClick" matTooltip="Page précédante">
+            <button [disabled]="!nextPageEnabled" (click)="getPreviousPage()" mat-button (click)="onClick" matTooltip="Page précédante">
                 <mat-icon>chevron_left</mat-icon>
             </button>
-            <button [disabled]="!hasNextPage()" (click)="getNextPage()" mat-button (click)="onClick" matTooltip="Page suivante">
+            <button [disabled]="!nextPageEnabled" (click)="getNextPage()" mat-button (click)="onClick" matTooltip="Page suivante">
                 <mat-icon>chevron_right</mat-icon>
             </button>
         </div>
