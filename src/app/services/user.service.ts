@@ -11,7 +11,7 @@ export class UserService {
     constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
-    getUsers(): Observable<any> {
+    getFilteredList(): Observable<any> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -20,11 +20,11 @@ export class UserService {
             .map((response: Response) => response.json());
     }
 
-    deleteUser(id: number): Observable<any> {
+    delete(id: number): Observable<any> {
         return null;
     }
 
-    createUser(user: IUser): Observable<IUser> {
+    create(user: IUser): Observable<IUser> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -33,7 +33,7 @@ export class UserService {
             .map((response: Response) => <IUser>response.json());
     }
 
-    editUser(user: IUser): Observable<IUser> {
+    edit(user: IUser): Observable<IUser> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()

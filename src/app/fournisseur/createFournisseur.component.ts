@@ -43,7 +43,7 @@ export class CreateFournisseurComponent implements OnInit {
             pays: formValues.pays
         }
 
-        this.fournisseurService.createFournisseur(newFournisseur).subscribe((val) => {
+        this.fournisseurService.create(newFournisseur).subscribe((val) => {
             this.router.navigate(['/fournisseurs']);
             this.snackBar.open("success", null, {duration: 2000});
         },

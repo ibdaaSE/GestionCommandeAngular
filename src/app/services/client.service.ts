@@ -13,7 +13,7 @@ export class ClientService {
     constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
-    getFiltredList(filter: String, pageIndex: number): Observable<IClient[]> {
+    getFilteredList(filter: String, pageIndex: number): Observable<IClient[]> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()

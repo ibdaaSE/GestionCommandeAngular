@@ -18,7 +18,7 @@ export class UserInfoComponent implements OnInit {
     ngOnInit() { }
 
     deleteUser() {
-        this.userService.deleteUser(this.user.id).catch(this.handleError).
+        this.userService.delete(this.user.id).catch(this.handleError).
             subscribe((val) => {
             },
             (err) => {

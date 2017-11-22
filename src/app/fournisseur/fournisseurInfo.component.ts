@@ -18,7 +18,7 @@ export class FournisseurInfoComponent implements OnInit {
     ngOnInit() { }
 
     deleteFournisseur() {
-        this.fournisseurService.deleteFournisseur(this.fournisseur.id).catch(this.handleError).
+        this.fournisseurService.delete(this.fournisseur.id).catch(this.handleError).
             subscribe((val) => {
             },
             (err) => {

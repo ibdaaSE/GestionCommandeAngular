@@ -24,11 +24,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("aaaaaaaaaaaaaaaa")
-        if(this.authenticationService.isLoggedIn()){
-            console.log("kkkkkkkkkkkkk")
-            this.router.navigate(['/clients']);
-        }
         this.loginForm = new FormGroup({
             userName: this.userName,
             password: this.password

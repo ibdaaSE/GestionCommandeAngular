@@ -13,7 +13,7 @@ export class FournisseurService {
     constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
-    getFournisseurs(filter: String, pageIndex: number): Observable<IFournisseur[]> {
+    getFilteredList(filter: String, pageIndex: number): Observable<IFournisseur[]> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -31,7 +31,7 @@ export class FournisseurService {
             .map((response: Response) => response.json());
     }
 
-    deleteFournisseur(id: number): Observable<any> {
+    delete(id: number): Observable<any> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -39,7 +39,7 @@ export class FournisseurService {
         return this.http.delete('/api/fournisseurs/' + id, { headers: headers });
     }
 
-    getFournisseur(id: number): Observable<IFournisseur> {
+    find(id: number): Observable<IFournisseur> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -47,7 +47,7 @@ export class FournisseurService {
         return this.http.get('/api/fournisseurs/' + id, { headers: headers }).map((response: Response) => response.json());
     }
 
-    createFournisseur(fournissseur: IFournisseur): Observable<IFournisseur> {
+    create(fournissseur: IFournisseur): Observable<IFournisseur> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -55,7 +55,7 @@ export class FournisseurService {
         return this.http.post('/api/fournisseurs', fournissseur, { headers: headers }).map((response: Response) => <IFournisseur>response.json());;
     }
 
-    editFournisseur(fournisseur: IFournisseur): Observable<IFournisseur> {
+    edit(fournisseur: IFournisseur): Observable<IFournisseur> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()

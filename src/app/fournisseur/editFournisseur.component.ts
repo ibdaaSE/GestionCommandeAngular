@@ -28,7 +28,7 @@ export class EditFournisseurComponent implements OnInit {
             pays: this.pays
         });
 
-        this.fournisseurService.getFournisseur(this.route.snapshot.params['id']).subscribe(
+        this.fournisseurService.find(this.route.snapshot.params['id']).subscribe(
             fournisseur => {
                 this.initFournisseurForm(fournisseur);
             }
@@ -58,7 +58,7 @@ export class EditFournisseurComponent implements OnInit {
             pays: formValues.pays
         }
 
-        this.fournisseurService.editFournisseur(newFournisseur).subscribe((val) => {
+        this.fournisseurService.edit(newFournisseur).subscribe((val) => {
             this.router.navigate(['/fournisseurs']);
             this.snackBar.open("success", null, {duration: 2000});
         },

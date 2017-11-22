@@ -36,7 +36,7 @@
             </button>
             <span fxFlex></span>
             <span fxFlex></span>
-            <button mat-icon-button class="mat-elevation-z0" matTooltip="Rafraîchir la liste" matTooltipPosition="before" (click)="getClients()">
+            <button mat-icon-button class="mat-elevation-z0" matTooltip="Rafraîchir la liste" matTooltipPosition="before" (click)="getFilteredList()">
                 <mat-icon>autorenew</mat-icon>
             </button>
         </div>
@@ -50,7 +50,7 @@
             <span fxFlex="46px"></span>
         </div>
         <div class="table-content" fxLayout="column" fxLayoutAlign=" none">
-            <div class="table-row" *ngFor="let element of filtredList">
+            <div class="table-row" *ngFor="let element of filteredList">
                 <commande-info [commande]="element" (deleteEvent)="deleted($event)"></commande-info>
             </div>
         </div>

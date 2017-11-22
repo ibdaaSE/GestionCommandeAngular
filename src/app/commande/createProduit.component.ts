@@ -59,7 +59,7 @@ export class CreateProduitComponent implements OnInit {
 
     filterFournisseurs(filter: String): IFournisseur[] {
         let fournisseurs: IFournisseur[] = [];
-        this.FournisseurService.getFournisseurs(filter, 0).subscribe((data) => {
+        this.FournisseurService.getFilteredList(filter, 0).subscribe((data) => {
             for (let fournisseur of data) {
                 fournisseurs.push(fournisseur);
             }

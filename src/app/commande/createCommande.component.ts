@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import { IClient, IProduit, ICommande, IFournisseur } from 'app/shared/models';
 import { ClientService } from 'app/services/client.service';
 import { Http, RequestOptions, Response, Headers } from '@angular/http';
+import { CommandeService } from 'app/services/commande.service';
 
 @Component({
     selector: 'create-commande',
@@ -29,7 +30,7 @@ export class CreateCommandeComponent implements OnInit {
     totalAchatsHT: number = 0;
     totalAchatsTTC: number = 0;
 
-    constructor(private clientService: ClientService, private http: Http) {
+    constructor(private service : CommandeService, private clientService: ClientService, private http: Http) {
     }
 
     ngOnInit() {
@@ -67,7 +68,7 @@ export class CreateCommandeComponent implements OnInit {
 
     filterClients(filter: String): IClient[] {
         let clients: IClient[] = [];
-        this.clientService.getClients(filter, 0).subscribe((data) => {
+        this.clientService.getFilteredList(filter, 0).subscribe((data) => {
             for (let client of data) {
                 clients.push(client);
             }
@@ -111,11 +112,7 @@ export class CreateCommandeComponent implements OnInit {
             fournisseur = {'id' : prod.fournisseur.id};
             prod.fournisseur = fournisseur;
         })
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        this.http.post('/api/createCommande', { 'commande': newCommande, 'produits': this.produits }, options).
-            map((response: Response) => response.json()).subscribe();
-
+        this.service.create(newCommande, this.produits);
         this.selectedClient = null;
         this.commandeForm.reset();
         this.produits = [];

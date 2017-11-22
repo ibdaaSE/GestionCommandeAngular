@@ -19,7 +19,7 @@ export class CommandeListComponent implements OnInit {
     nextPageEnabled = true;
     previousPageEnabled = true;
 
-    filtredList: ICommande[];
+    filteredList: ICommande[];
     selected: ICommande;
 
     constructor(private service: CommandeService, private snackBar: MatSnackBar,
@@ -31,13 +31,13 @@ export class CommandeListComponent implements OnInit {
         this.pageLength = 20;
         this.count = 0;
         this.updatecount();
-        this.getFiltredList();
+        this.getFilteredList();
     }
 
-    getFiltredList() {
-        let observable = this.service.getFiltredList(this.filter, this.pageIndex);
+    getFilteredList() {
+        let observable = this.service.getFilteredList(this.filter, this.pageIndex);
         observable.subscribe(newList => {
-            this.filtredList = newList;
+            this.filteredList = newList;
             this.fillPositionPage();
         });
     }
@@ -46,31 +46,31 @@ export class CommandeListComponent implements OnInit {
         this.filter = filter;
         this.pageIndex = 0;
         this.updatecount();
-        this.getFiltredList();
+        this.getFilteredList();
     }
 
     getNextPage() {
         if (!this.hasNextPage()) return;
         this.pageIndex = (this.pageIndex + this.pageLength);
-        this.getFiltredList();
+        this.getFilteredList();
     }
 
     getLastPage() {
         if (!this.hasNextPage()) return;
         this.pageIndex = this.count - this.pageLength;
-        this.getFiltredList();
+        this.getFilteredList();
     }
 
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
         this.pageIndex = (this.pageIndex - this.pageLength) < 0? 0 : this.pageIndex - this.pageLength;
-        this.getFiltredList();
+        this.getFilteredList();
     }
 
     getFirstPage() {
         if (!this.hasPreviousPage()) return;
         this.pageIndex = 0;
-        this.getFiltredList();
+        this.getFilteredList();
     }
 
     hasNextPage() {
@@ -94,7 +94,7 @@ export class CommandeListComponent implements OnInit {
     }
 
     deleted(message: string) {
-        this.getFiltredList();
+        this.getFilteredList();
         this.snackBar.open(message, null, { duration: 2000 });
     }
 

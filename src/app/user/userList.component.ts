@@ -13,26 +13,26 @@ import { stringify } from 'querystring';
 })
 export class UserListComponent implements OnInit {
 
-    filtredList: IUser[];
+    filteredList: IUser[];
     selected: IUser;
 
     constructor(private userService: UserService, private snackBar: MatSnackBar,
         private router: Router) { }
 
     ngOnInit() {
-        this.getFiltredList();
+        this.getFilteredList();
      }
 
-     getFiltredList() {
-        let observable = this.userService.getUsers();
+     getFilteredList() {
+        let observable = this.userService.getFilteredList();
         observable.subscribe(newList => {
-            this.filtredList = newList._embedded.users;
+            this.filteredList = newList._embedded.users;
         });
     }
 
 
     deleted(message : string){
-        this.getFiltredList();
+        this.getFilteredList();
         this.snackBar.open(message, null, {duration: 2000});
     }
    
