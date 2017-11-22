@@ -93,7 +93,7 @@ export class ClientListComponent implements OnInit {
         });
     }
 
-    deletedClients(message: string) {
+    deleted(message: string) {
         this.getFiltredList();
         this.snackBar.open(message, null, { duration: 2000 });
     }

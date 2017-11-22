@@ -50,8 +50,8 @@
             <span fxFlex="46px"></span>
         </div>
         <div class="table-content" fxLayout="column" fxLayoutAlign=" none">
-            <div class="table-row" *ngFor="let commande of filtredList">
-                <commande-info [commande]="commande" (deleteEvent)="deleted($event)"></commande-info>
+            <div class="table-row" *ngFor="let element of filtredList">
+                <commande-info [commande]="element" (deleteEvent)="deleted($event)"></commande-info>
             </div>
         </div>
     </div>

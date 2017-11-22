@@ -19,10 +19,10 @@ export class FournisseurListComponent implements OnInit {
     nextPageEnabled = true;
     previousPageEnabled = true;
 
-    fournisseurs: IFournisseur[];
-    selectedFournisseur: IFournisseur;
+    filtredList: IFournisseur[];
+    selected: IFournisseur;
 
-    constructor(private fournisseurService: FournisseurService, private snackBar : MatSnackBar ,
+    constructor(private service: FournisseurService, private snackBar : MatSnackBar ,
     private router:Router) { }
 
     ngOnInit() {
@@ -31,13 +31,13 @@ export class FournisseurListComponent implements OnInit {
         this.pageLength = 20;
         this.count = 0;
         this.updatecount();
-        this.getFournisseurs();
+        this.getFiltredList();
     }
 
-    getFournisseurs() {
-        let observable = this.fournisseurService.getFournisseurs(this.filter, this.pageIndex);
-        observable.subscribe(fournisseurs => {
-            this.fournisseurs = fournisseurs;
+    getFiltredList() {
+        let observable = this.service.getFournisseurs(this.filter, this.pageIndex);
+        observable.subscribe(newList => {
+            this.filtredList = newList;
             this.fillPositionPage();
         });
     }
@@ -46,31 +46,31 @@ export class FournisseurListComponent implements OnInit {
         this.filter = filter;
         this.pageIndex = 0;
         this.updatecount();
-        this.getFournisseurs();
+        this.getFiltredList();
     }
 
     getNextPage() {
         if (!this.hasNextPage()) return;
         this.pageIndex = (this.pageIndex + this.pageLength);
-        this.getFournisseurs();
+        this.getFiltredList();
     }
 
     getLastPage() {
         if (!this.hasNextPage()) return;
         this.pageIndex = this.count - this.pageLength;
-        this.getFournisseurs();
+        this.getFiltredList();
     }
 
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
         this.pageIndex = (this.pageIndex - this.pageLength) < 0? 0 : this.pageIndex - this.pageLength;
-        this.getFournisseurs();
+        this.getFiltredList();
     }
 
     getFirstPage() {
         if (!this.hasPreviousPage()) return;
         this.pageIndex = 0;
-        this.getFournisseurs();
+        this.getFiltredList();
     }
 
     hasNextPage() {
@@ -87,14 +87,14 @@ export class FournisseurListComponent implements OnInit {
     }
 
     updatecount() {
-        let observable = this.fournisseurService.count(this.filter);
+        let observable = this.service.count(this.filter);
         observable.subscribe(count => {
             this.count = +count;
         });
     }
 
-    deletedFournisseurs(message : string){
-        this.getFournisseurs();
+    deleted(message : string){
+        this.getFiltredList();
         this.snackBar.open(message, null, {duration: 2000});
     }
 
