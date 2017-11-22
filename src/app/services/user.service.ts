@@ -20,12 +20,26 @@ export class UserService {
             .map((response: Response) => response.json());
     }
 
-    deleteUser(id :number) : Observable<any>{
+    deleteUser(id: number): Observable<any> {
         return null;
     }
 
-    createUser(){
-        
+    createUser(user: IUser): Observable<IUser> {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.post('/api/createUser', user, { headers: headers })
+            .map((response: Response) => <IUser>response.json());
+    }
+
+    editUser(user: IUser): Observable<IUser> {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.put('/api/users/' + user.id, user, { headers: headers })
+            .map((response: Response) => <IUser>response.json());
     }
 
 

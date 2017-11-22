@@ -45,7 +45,7 @@ export class CreateFournisseurComponent implements OnInit {
 
         this.fournisseurService.createFournisseur(newFournisseur).subscribe((val) => {
             this.router.navigate(['/fournisseurs']);
-            this.snackBar.open("success");
+            this.snackBar.open("success", null, {duration: 2000});
         },
             (err) => {
             },
