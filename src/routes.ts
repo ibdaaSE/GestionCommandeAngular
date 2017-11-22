@@ -23,5 +23,5 @@ export const appRoutes: Routes = [
     { path: 'commandes/create', component: CreateCommandeComponent, canActivate: [CanActivateAuthGuard]},
     { path: 'commandes', component: CommandeListComponent, canActivate: [CanActivateAuthGuard]},
     { path: 'users', component: UserListComponent, canActivate: [CanActivateAuthGuard]},    
-    { path: '', redirectTo: '/home', pathMatch: 'full'}
+    { path: '', redirectTo: '/clients', pathMatch: 'full'}
 ]

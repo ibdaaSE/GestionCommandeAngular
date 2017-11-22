@@ -43,7 +43,7 @@ export class CreateClientComponent implements OnInit {
             pays: formValues.pays
         }
 
-        this.clientService.createClient(newClient).subscribe((val) => {
+        this.clientService.create(newClient).subscribe((val) => {
             this.router.navigate(['/clients']);
             this.snackBar.open("success", null, {duration: 2000});
         },

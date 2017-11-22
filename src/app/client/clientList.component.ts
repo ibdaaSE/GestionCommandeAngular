@@ -35,7 +35,7 @@ export class ClientListComponent implements OnInit {
     }
 
     getFiltredList() {
-        let observable = this.service.getClients(this.filter, this.pageIndex);
+        let observable = this.service.getFiltredList(this.filter, this.pageIndex);
         observable.subscribe(newList => {
             this.filtredList = newList;
             this.fillPositionPage();

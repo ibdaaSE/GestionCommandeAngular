@@ -13,7 +13,7 @@ export class ClientService {
     constructor(private http: Http, private authenticationService: AuthenticationService) {
     }
 
-    getClients(filter: String, pageIndex: number): Observable<IClient[]> {
+    getFiltredList(filter: String, pageIndex: number): Observable<IClient[]> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -31,7 +31,7 @@ export class ClientService {
             .map((response: Response) => response.json());
     }
 
-    deleteClient(id: number): Observable<any> {
+    delete(id: number): Observable<any> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -39,7 +39,7 @@ export class ClientService {
         return this.http.delete('/api/clients/' + id, { headers: headers });
     }
 
-    getClient(id: number): Observable<IClient> {
+    find(id: number): Observable<IClient> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -47,7 +47,7 @@ export class ClientService {
         return this.http.get('/api/clients/' + id, { headers: headers }).map((response: Response) => response.json());
     }
 
-    createClient(client: IClient): Observable<IClient> {
+    create(client: IClient): Observable<IClient> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
@@ -55,7 +55,7 @@ export class ClientService {
         return this.http.post('/api/clients', client, { headers: headers }).map((response: Response) => <IClient>response.json());
     }
 
-    editClient(client: IClient): Observable<IClient> {
+    edit(client: IClient): Observable<IClient> {
         let headers = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()

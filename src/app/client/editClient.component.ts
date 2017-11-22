@@ -28,7 +28,7 @@ export class EditClientComponent implements OnInit {
             pays: this.pays
         });
 
-        this.clientService.getClient(this.route.snapshot.params['id']).subscribe(
+        this.clientService.find(this.route.snapshot.params['id']).subscribe(
             client => {
                 this.initClientForm(client);
             }
@@ -58,7 +58,7 @@ export class EditClientComponent implements OnInit {
             pays: formValues.pays
         }
 
-        this.clientService.editClient(newClient).subscribe((val) => {
+        this.clientService.edit(newClient).subscribe((val) => {
             this.router.navigate(['/clients']);
             this.snackBar.open("success", null, {duration: 2000});
         },

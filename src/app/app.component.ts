@@ -17,15 +17,15 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router, private authenticationService: AuthenticationService) {
-    this.authenticationService.observedPrevileges.subscribe((val) => {
-      this.previleges = val;
-      this.fillPrevileges();
-    })
   }
 
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
+    this.authenticationService.observedPrevileges.subscribe((val) => {
+      this.previleges = val;
+      this.fillPrevileges();
+    })
   }
 
   logout() {
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     return previleges.length == 1;
   }
 
-  fillPrevileges(){
+  fillPrevileges() {
     this.hasAccessClients = this.hasPrevilege("clients")
     this.hasAccessFournisseurs = this.hasPrevilege("fournisseurs")
     this.hasAccessCommandes = this.hasPrevilege("commandes")

@@ -18,7 +18,7 @@ export class ClientInfoComponent implements OnInit {
     ngOnInit() { }
 
     deleteClient() {
-        this.clientService.deleteClient(this.client.id).catch(this.handleError).
+        this.clientService.delete(this.client.id).catch(this.handleError).
             subscribe((val) => {
             },
             (err) => {
