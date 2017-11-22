@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
     this.authenticationService.observedPrevileges.subscribe((val) => {
       this.previleges = val;
       this.fillPrevileges();
-    })
+    });
+    this.authenticationService.getPrevileges();
   }
 
   logout() {

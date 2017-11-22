@@ -27,7 +27,18 @@ export class AuthenticationService {
                 if (token) {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-                    this.getPrevileges();
+                    // get prvileges and store them into local storage
+                    let headers = new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': this.getToken()
+                    });
+                    this.http.get('/api/previleges', { headers: headers })
+                        .map((response: Response) => response.json()).subscribe(
+                        (val) => {
+                            localStorage.setItem('previleges', JSON.stringify({ previleges: val }));
+                            this.getPrevileges();
+                        }
+                        );
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -46,6 +57,8 @@ export class AuthenticationService {
     logout(): void {
         // clear token remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('previleges');
+
     }
 
     isLoggedIn(): boolean {
@@ -54,13 +67,9 @@ export class AuthenticationService {
     }
 
     getPrevileges() {
-        let headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': this.getToken()
-        });
-        this.http.get('/api/previleges', { headers: headers })
-            .map((response: Response) => response.json()).subscribe(
-            (val) => { this.previleges.next(val); return val; }
-            );
+        var previleges = JSON.parse(localStorage.getItem('previleges'));
+        this.previleges.next(previleges.previleges);
+        console.log('previleges fetched !!!');
+        
     }
 }
