@@ -60,7 +60,7 @@ export class EditFournisseurComponent implements OnInit {
 
         this.fournisseurService.editFournisseur(newFournisseur).subscribe((val) => {
             this.router.navigate(['/fournisseurs']);
-            this.snackBar.open("success");
+            this.snackBar.open("success", null, {duration: 2000});
         },
             (err) => {
             },

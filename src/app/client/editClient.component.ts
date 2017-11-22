@@ -60,7 +60,7 @@ export class EditClientComponent implements OnInit {
 
         this.clientService.editClient(newClient).subscribe((val) => {
             this.router.navigate(['/clients']);
-            this.snackBar.open("success");
+            this.snackBar.open("success", null, {duration: 2000});
         },
             (err) => {
             },
