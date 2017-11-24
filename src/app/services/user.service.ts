@@ -20,9 +20,22 @@ export class UserService {
             .map((response: Response) => response.json());
     }
 
+    find(id: number): Observable<IUser> {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.get('/api/users/' + id, { headers: headers })
+            .map((response: Response) => <IUser>response.json());
+    }
+
     delete(id: number): Observable<any> {
-        return null;
-        
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.getToken()
+        });
+        return this.http.delete('/api/users/' + id, { headers: headers })
+            .map((response: Response) => response.json());
     }
 
     create(user: IUser): Observable<IUser> {
@@ -39,9 +52,19 @@ export class UserService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.getToken()
         });
-        return this.http.put('/api/users/' + user.id, user, { headers: headers })
+        return this.http.patch('/api/users/' + user.id, user, { headers: headers })
             .map((response: Response) => <IUser>response.json());
     }
 
+    changePassword(newPassword) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': this.authenticationService.getToken()
+        });
+        return this.http.patch('/api/changePassword', newPassword, { headers: headers })
+            .map((response: Response) => {
+                return response.json()
+            });
+    }
 
 }

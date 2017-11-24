@@ -1,0 +1,41 @@
+<div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlexFill>
+    <form [formGroup]="userForm" (ngSubmit)="createUser(userForm.value)" fxLayout="column" fxLayoutAlign="space-evenly stretch"
+            class="main-form" fxFlex>
+            <h1>Nouveau Utilisateur</h1>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <mat-input-container floatPlaceholder="auto" fxFlex>
+                            <input matInput formControlName="username" type="text" placeholder="Nom d'utilisateur" autofocus>
+                    </mat-input-container>
+                    <span fxFlex="1"></span>
+                    <mat-input-container floatPlaceholder="auto" fxFlex>
+                            <input matInput formControlName="password" type="password" placeholder="Mot de Passe">
+                    </mat-input-container>
+            </div>
+            <div>
+                    <mat-input-container floatPlaceholder="auto" fxFlex>
+                            <input matInput formControlName="firstname" type="text" placeholder="Nom">
+                    </mat-input-container>
+                    <span fxFlex="1"></span>
+                    <mat-input-container floatPlaceholder="auto" fxFlex>
+                            <input matInput formControlName="lastname" type="text" placeholder="Prenom">
+                    </mat-input-container>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                    <mat-input-container floatPlaceholder="auto" fxFlex>
+                            <input matInput formControlName="email" type="email" placeholder="E-mail">
+                    </mat-input-container>
+            </div>
+           
+            <div fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-raised-button class="submit-button" type="submit">
+                            <mat-icon>done</mat-icon>
+                            <span>Valider</span>
+                    </button>
+                    <span fxFlex="1"></span>
+                    <button mat-raised-button (click)="cancel()" type="button">
+                            <mat-icon>clear</mat-icon>
+                            <span>Annuler</span>
+                    </button>
+            </div>
+    </form>
+</div>

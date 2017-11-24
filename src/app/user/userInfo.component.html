@@ -16,5 +16,10 @@
             <mat-icon>delete</mat-icon>
             <span>Supprimer</span>
         </button>
+        <button mat-menu-item (click)="enableDisableUser()">
+                <mat-icon>delete</mat-icon>
+                <span *ngIf="user.enabled">desactiver</span>
+                <span *ngIf="!user.enabled">activer</span>                
+            </button>
     </mat-menu>
 </div>

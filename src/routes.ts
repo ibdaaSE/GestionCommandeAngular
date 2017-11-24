@@ -10,6 +10,9 @@ import { CommandeListComponent } from 'app/commande/commandeList.component';
 import { HomeComponent } from 'app/user/home.component';
 import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service';
 import { UserListComponent } from 'app/user/userList.component';
+import { CreateUserComponent } from 'app/user/createUser.component';
+import { EditUserComponent } from 'app/user/editUser.component';
+import { ChangePasswordComponent } from 'app/user/changePassword.component';
 
 
 export const appRoutes: Routes = [
@@ -22,6 +25,9 @@ export const appRoutes: Routes = [
     { path: 'fournisseurs', component: FournisseurListComponent, canActivate: [CanActivateAuthGuard]},
     { path: 'commandes/create', component: CreateCommandeComponent, canActivate: [CanActivateAuthGuard]},
     { path: 'commandes', component: CommandeListComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'users/create', component: CreateUserComponent, canActivate: [CanActivateAuthGuard]},
+    { path: 'users/edit/:id', component: EditUserComponent, canActivate: [CanActivateAuthGuard]},
     { path: 'users', component: UserListComponent, canActivate: [CanActivateAuthGuard]},    
+    { path: 'changePassword', component: ChangePasswordComponent, canActivate: [CanActivateAuthGuard]},    
     { path: '', redirectTo: '/clients', pathMatch: 'full'}
 ]

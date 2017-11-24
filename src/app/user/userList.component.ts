@@ -31,9 +31,13 @@ export class UserListComponent implements OnInit {
     }
 
 
-    deleted(message : string){
+    refresh(message : string){
         this.getFilteredList();
         this.snackBar.open(message, null, {duration: 2000});
+    }
+
+    goToCreate() {
+        this.router.navigate(['/users/create']);
     }
    
 }
