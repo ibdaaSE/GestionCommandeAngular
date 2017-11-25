@@ -32,6 +32,9 @@ import { CanActivateAuthGuard } from 'app/services/canActivateAuthGuard.service'
 import { UserListComponent } from 'app/user/userList.component';
 import { UserService } from 'app/services/user.service';
 import { UserInfoComponent } from 'app/user/userInfo.component';
+import { CreateUserComponent } from 'app/user/createUser.component';
+import { EditUserComponent } from 'app/user/editUser.component';
+import { ChangePasswordComponent } from 'app/user/changePassword.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { UserInfoComponent } from 'app/user/userInfo.component';
     ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
     FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent,
     CommandeListComponent, CommandeInfoComponent, CreateCommandeComponent, CreateProduitComponent, 
-    UserListComponent,UserInfoComponent,
+    UserListComponent,UserInfoComponent,CreateUserComponent,EditUserComponent,
+    ChangePasswordComponent,
     ProduitInfoComponent, HomeComponent
   ],
   imports: [

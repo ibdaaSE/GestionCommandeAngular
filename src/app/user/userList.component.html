@@ -21,7 +21,7 @@
         </div>
         <div class="table-content" fxLayout="column" fxLayoutAlign=" none">
             <div class="table-row" *ngFor="let element of filteredList">
-                <user-info [user]="element" (deleteEvent)="deleted($event)"></user-info>
+                <user-info [user]="element" (refreshEvent)="refresh($event)"></user-info>
             </div>
         </div>
     </div>

@@ -54,7 +54,8 @@ export interface IUser {
     enabled?: boolean,
     lastPasswordResetDate?: Date,
     role?: {
-        previleges: { name: String }[],
-        name: String
+        id?:number,
+        previleges?: { name: String }[],
+        name?: String
     }
 }
