@@ -4,10 +4,6 @@
         <span fxFlex="10px"></span>
         <h2 fxFlex>Nouvelle commande</h2>
         <span fxFlex="10px"></span>
-        <mat-input-container floatPlaceholder="auto" fxFlex="200px">
-            <input matInput formControlName="numero" type="text" placeholder="N° Commande">
-        </mat-input-container>
-        <span fxFlex="10px"></span>
         <mat-form-field fxFlex="150px">
             <input matInput [matDatepicker]="dateCommandePicker" placeholder="Date commande" formControlName="dateCommande">
             <mat-datepicker-toggle matSuffix [for]="dateCommandePicker"></mat-datepicker-toggle>
@@ -60,7 +56,7 @@
     </div>
 
     <span fxFlex="20px"></span>
-    <create-produit (addProduitEvent)="addProduit($event)"></create-produit>
+    <create-produit (addProduitEvent)="addProduit($event)" [edittedProduit]="edittedProduit"></create-produit>
     <div fxFlex>
         <div *ngFor="let produit of produits">
             <produit-info [produit]="produit" (deleteEvent)="deletedProduit($event)"></produit-info>
@@ -82,10 +78,10 @@
             <span>Valider</span>
         </button>
         <span fxFlex="10px"></span>
-        <button mat-raised-button class="submit-button" type="submit">
+        <button mat-raised-button  type="button" (click)="cancel()">
             <mat-icon>clear</mat-icon>
             <span>Annuler</span>
         </button>
     </div>
     <span fxFlex="10px"></span>
-</form>
+</form> 

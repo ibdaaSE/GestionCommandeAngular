@@ -19,7 +19,7 @@ export class CommandeInfoComponent implements OnInit {
     ngOnInit() { }
 
     delete() {
-        /*this.commandeService.deleteClient(this.client.id).catch(this.handleError).
+        this.commandeService.delete(this.commande.id).catch(this.handleError).
             subscribe((val) => {
             },
             (err) => {
@@ -27,11 +27,11 @@ export class CommandeInfoComponent implements OnInit {
             },
             () => {
                 this.deleteEvent.emit("success");
-            });*/
+            });
     }
 
     edit(){
-        this.router.navigate(["/clients/edit",this.commande.id]);
+        this.router.navigate(["/commandes/edit",this.commande.id]);
     }
 
     private handleError(error: Response) {

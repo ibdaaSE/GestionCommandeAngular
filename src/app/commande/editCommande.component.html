@@ -1,0 +1,91 @@
+<form [formGroup]="commandeForm" (ngSubmit)="editCommande(commandeForm.value)" fxLayout="column" fxLayoutAlign=" stretch"
+fxFill>
+<div>
+    <span fxFlex="10px"></span>
+    <h2 fxFlex>Modifier commande</h2>
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="200px">
+        <input matInput formControlName="numero" type="text" placeholder="N° Commande">
+    </mat-input-container>
+    <span fxFlex="10px"></span>
+    <mat-form-field fxFlex="150px">
+        <input matInput [matDatepicker]="dateCommandePicker" placeholder="Date commande" formControlName="dateCommande">
+        <mat-datepicker-toggle matSuffix [for]="dateCommandePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateCommandePicker></mat-datepicker>
+    </mat-form-field>
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
+        <input matInput formControlName="montantHT" type="number" placeholder="Montant-HT">
+    </mat-input-container>
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
+        <input matInput formControlName="montantTTC" type="number" placeholder="Montant-TTC">
+    </mat-input-container>
+    <span fxFlex="10px"></span>
+    <mat-form-field fxFlex="150px">
+        <input matInput [matDatepicker]="delaiLivraisonPicker" placeholder="Délai livraison" formControlName="delaiLivraison">
+        <mat-datepicker-toggle matSuffix [for]="delaiLivraisonPicker"></mat-datepicker-toggle>
+        <mat-datepicker #delaiLivraisonPicker></mat-datepicker>
+    </mat-form-field>
+    <span fxFlex="10px"></span>
+</div>
+<div>
+    <span fxFlex></span>
+    <div *ngIf="selectedClient" fxFlex="360px" fxLayout="row" fxLayoutAlign=" center">
+        <p>Client : {{ selectedClient.raisonSociale }}
+            <br>
+            <span *ngIf="selectedClient.responsable">Responsable : {{ selectedClient.responsable }}</span>
+        </p>
+        <span fxFlex></span>
+        <button mat-button (click)="clearSelectedClient()" fxFlex="40px" matTooltip="Annuler la sélection de ce client" matTooltipPosition="after">X</button>
+        <span fxFlex="10px"></span>
+    </div>
+    <mat-form-field *ngIf="!selectedClient" fxFlex="360px">
+        <input type="text" placeholder="Client" matInput [formControl]="searchClientForm" [matAutocomplete]="auto" autofocus>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let client of filtredClients | async" [value]="client">
+                {{ client.raisonSociale }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="310px">
+        <input matInput formControlName="refCommandeClient" type="text" placeholder="Réf. de la Commande du Client">
+    </mat-input-container>
+    <span fxFlex="10px"></span>
+    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
+        <input matInput formControlName="modePayement" type="text" placeholder="Mode de payement">
+    </mat-input-container>
+    <span fxFlex="10px"></span>
+</div>
+
+<span fxFlex="20px"></span>
+<create-produit (addProduitEvent)="addProduit($event)" [edittedProduit]= "edittedProduit" ></create-produit>
+<div fxFlex>
+    <div *ngFor="let produit of produits">
+        <produit-info [produit]="produit" (deleteEvent)="deletedProduit($event)"></produit-info>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <span fxFlex="10px"></span>
+    <h4>Total des achats :</h4>
+    <span fxFlex></span>
+    <h3 fxFlex="150px">{{totalAchatsHT | number : '1.2-2'}} €</h3>
+    <span fxFlex="10px"></span>
+    <h3 fxFlex="150px">{{totalAchatsTTC | number : '1.2-2'}} €</h3>
+    <span fxFlex="60px"></span>
+</div>
+<span fxFlex="10px"></span>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button class="submit-button" type="submit">
+        <mat-icon>done</mat-icon>
+        <span>Valider</span>
+    </button>
+    <span fxFlex="10px"></span>
+    <button mat-raised-button  type="button" (click)="cancel()">
+        <mat-icon>clear</mat-icon>
+        <span>Annuler</span>
+    </button>
+</div>
+<span fxFlex="10px"></span>
+</form>
