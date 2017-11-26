@@ -1,4 +1,4 @@
-<form [formGroup]="produitForm" (ngSubmit)="createProduit(produitForm.value)" fxLayout="row" fxLayoutAlign="center center">
+<form [formGroup]="produitForm" fxLayout="row" fxLayoutAlign="center center">
     <span fxFlex="10px"></span>
     <div *ngIf="selectedFournisseur" fxFlex fxLayout="row" fxLayoutAlign=" center">
         <p>Fournisseur : {{ selectedFournisseur.raisonSociale }}
@@ -36,7 +36,7 @@
         <input matInput formControlName="montantTTC" type="number" placeholder="MontantTTC">
     </mat-input-container>
     <span fxFlex="10px"></span>
-    <button mat-raised-button class="submit-button" type="submit" fxFlex="40px">
+    <button mat-raised-button class="submit-button" (click)="createProduit(produitForm.value)" type="button" fxFlex="40px">
         <mat-icon>add</mat-icon>
     </button>
     <button mat-raised-button type="reset" fxFlex="40px" (click)="clear()"  >
