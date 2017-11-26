@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { FournisseurService } from 'app/services/fournisseur.service';
-import { IFournisseur } from 'app/shared/models';
-import { Location } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
+import { FournisseurService } from "app/services/fournisseur.service";
+import { IFournisseur } from "app/shared/models";
+import { Location } from "@angular/common";
 
 @Component({
-    selector: 'create-fournisseur',
-    templateUrl: './createFournisseur.component.html',
-    styleUrls: ['./createFournisseur.component.css']
+    selector: "create-fournisseur",
+    templateUrl: "./createFournisseur.component.html",
+    styleUrls: ["./createFournisseur.component.css"]
 })
 export class CreateFournisseurComponent implements OnInit {
 
     fournisseurForm: FormGroup;
-    raisonSociale = new FormControl('', Validators.required); responsable = new FormControl();
-    adresse = new FormControl(); email = new FormControl('', Validators.email);
+    raisonSociale = new FormControl("", Validators.required); responsable = new FormControl();
+    adresse = new FormControl(); email = new FormControl("", Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
     validating = false;
@@ -46,7 +46,7 @@ export class CreateFournisseurComponent implements OnInit {
             cp: formValues.cp,
             ville: formValues.ville,
             pays: formValues.pays
-        }
+        };
 
         this.fournisseurService.create(newFournisseur).subscribe((val) => {
             this.location.back();

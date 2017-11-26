@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ClientService } from 'app/services/client.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IClient } from 'app/shared/models';
-import { MatSnackBar } from '@angular/material';
-import { Location } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { ClientService } from "app/services/client.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { IClient } from "app/shared/models";
+import { MatSnackBar } from "@angular/material";
+import { Location } from "@angular/common";
 
 @Component({
-    selector: 'create-client',
-    templateUrl: './createClient.component.html',
-    styleUrls: ['./createClient.component.css']
+    selector: "create-client",
+    templateUrl: "./createClient.component.html",
+    styleUrls: ["./createClient.component.css"]
 })
 export class CreateClientComponent implements OnInit {
 
     clientForm: FormGroup;
-    raisonSociale = new FormControl('', Validators.required); responsable = new FormControl();
-    adresse = new FormControl(); email = new FormControl('', Validators.email);
+    raisonSociale = new FormControl("", Validators.required); responsable = new FormControl();
+    adresse = new FormControl(); email = new FormControl("", Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
     validating = false;
@@ -33,7 +33,7 @@ export class CreateClientComponent implements OnInit {
     }
 
     createClient(formValues) {
-        if(this.validating){
+        if (this.validating) {
             return;
         }
         this.validating = true;
@@ -47,7 +47,7 @@ export class CreateClientComponent implements OnInit {
                 cp: formValues.cp,
                 ville: formValues.ville,
                 pays: formValues.pays
-            }
+            };
 
             this.clientService.create(newClient).subscribe((val) => {
                 this.location.back();

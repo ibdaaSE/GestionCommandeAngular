@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { FournisseurService } from 'app/services/fournisseur.service';
-import { IFournisseur } from 'app/shared/models';
-import { Location } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
+import { FournisseurService } from "app/services/fournisseur.service";
+import { IFournisseur } from "app/shared/models";
+import { Location } from "@angular/common";
 
 @Component({
-    selector: 'edit-fournisseur',
-    templateUrl: './editFournisseur.component.html',
-    styleUrls: ['./editFournisseur.component.css']
+    selector: "edit-fournisseur",
+    templateUrl: "./editFournisseur.component.html",
+    styleUrls: ["./editFournisseur.component.css"]
 })
 export class EditFournisseurComponent implements OnInit {
 
     fournisseurForm: FormGroup;
-    raisonSociale = new FormControl('', Validators.required); responsable = new FormControl();
-    adresse = new FormControl(); email = new FormControl('', Validators.email);
+    raisonSociale = new FormControl("", Validators.required); responsable = new FormControl();
+    adresse = new FormControl(); email = new FormControl("", Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
     validating = false;
@@ -30,7 +30,7 @@ export class EditFournisseurComponent implements OnInit {
             pays: this.pays
         });
 
-        this.fournisseurService.find(this.route.snapshot.params['id']).subscribe(
+        this.fournisseurService.find(this.route.snapshot.params["id"]).subscribe(
             fournisseur => {
                 this.initFournisseurForm(fournisseur);
             }
@@ -54,7 +54,7 @@ export class EditFournisseurComponent implements OnInit {
         this.validating = true;
         let newFournisseur: IFournisseur;
         newFournisseur = {
-            id: this.route.snapshot.params['id'],
+            id: this.route.snapshot.params["id"],
             raisonSociale: formValues.raisonSociale,
             responsable: formValues.responsable,
             adresse: formValues.adresse,
@@ -62,7 +62,7 @@ export class EditFournisseurComponent implements OnInit {
             cp: formValues.cp,
             ville: formValues.ville,
             pays: formValues.pays
-        }
+        };
 
         this.fournisseurService.edit(newFournisseur).subscribe((val) => {
             this.location.back();

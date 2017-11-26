@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
+import { Injectable } from "@angular/core";
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
 export class CanActivateAuthGuard implements CanActivate {
@@ -14,7 +14,7 @@ export class CanActivateAuthGuard implements CanActivate {
         }
 
         // not logged in so redirect to login page with the return url and return false
-        this.router.navigate(['/home']);
+        this.router.navigate(["/home"]);
         return false;
     }
 }

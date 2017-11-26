@@ -1,26 +1,26 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
-import { IFournisseur, IProduit } from 'app/shared/models';
-import { FournisseurService } from 'app/services/fournisseur.service';
-import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, SimpleChanges } from "@angular/core";
+import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/startWith";
+import "rxjs/add/operator/map";
+import { IFournisseur, IProduit } from "app/shared/models";
+import { FournisseurService } from "app/services/fournisseur.service";
+import { OnChanges } from "@angular/core/src/metadata/lifecycle_hooks";
 
 @Component({
-    selector: 'create-produit',
-    templateUrl: './createProduit.component.html',
-    styleUrls: ['./createProduit.component.css']
+    selector: "create-produit",
+    templateUrl: "./createProduit.component.html",
+    styleUrls: ["./createProduit.component.css"]
 })
 export class CreateProduitComponent implements OnInit, OnChanges {
 
 
     produitForm: FormGroup;
-    searchFournisseurForm = new FormControl('', Validators.required);
-    produits = new FormControl('', Validators.required);
-    delai = new FormControl('', Validators.required);
-    montantHT = new FormControl('', Validators.required);
-    montantTTC = new FormControl('', Validators.required);
+    searchFournisseurForm = new FormControl("", Validators.required);
+    produits = new FormControl("", Validators.required);
+    delai = new FormControl("", Validators.required);
+    montantHT = new FormControl("", Validators.required);
+    montantTTC = new FormControl("", Validators.required);
 
     public selectedFournisseur: IFournisseur;
     filtredFournisseurs: Observable<IFournisseur[]>;
@@ -34,9 +34,9 @@ export class CreateProduitComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.filtredFournisseurs = this.searchFournisseurForm.valueChanges
             .map((fournisseur) => {
-                if (fournisseur && typeof fournisseur === 'object') {
+                if (fournisseur && typeof fournisseur === "object") {
                     this.selectedFournisseur = fournisseur;
-                    let s = null;
+                    const s = null;
                     return s;
                 } else {
                     return fournisseur;
@@ -75,9 +75,9 @@ export class CreateProduitComponent implements OnInit, OnChanges {
     }
 
     filterFournisseurs(filter: String): IFournisseur[] {
-        let fournisseurs: IFournisseur[] = [];
+        const fournisseurs: IFournisseur[] = [];
         this.FournisseurService.getFilteredList(filter, 0).subscribe((data) => {
-            for (let fournisseur of data) {
+            for (const fournisseur of data) {
                 fournisseurs.push(fournisseur);
             }
             return fournisseurs;
@@ -87,7 +87,7 @@ export class CreateProduitComponent implements OnInit, OnChanges {
 
     clearSelectedFournisseur() {
         this.selectedFournisseur = null;
-        this.searchFournisseurForm.setValue('');
+        this.searchFournisseurForm.setValue("");
     }
 
     createProduit(formValues) {
@@ -98,13 +98,13 @@ export class CreateProduitComponent implements OnInit, OnChanges {
             montantTTC: +formValues.montantTTC,
             produits: formValues.produits,
             fournisseur: this.selectedFournisseur,
-        }
+        };
         this.addProduitEvent.emit(newProduit);
         this.selectedFournisseur = null;
         this.produitForm.reset();
     }
 
-    clear(){
+    clear() {
         this.selectedFournisseur = null;
     }
 }

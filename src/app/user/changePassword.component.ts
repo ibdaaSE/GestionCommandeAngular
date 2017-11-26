@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { UserService } from 'app/services/user.service';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { UserService } from "app/services/user.service";
+import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
-    selector: 'change-password',
-    templateUrl: './changePassword.component.html',
-    styleUrls: ['./changePassword.component.css']
+    selector: "change-password",
+    templateUrl: "./changePassword.component.html",
+    styleUrls: ["./changePassword.component.css"]
 })
 export class ChangePasswordComponent implements OnInit {
 
@@ -28,14 +28,14 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     changePassword(formValues) {
-        let newPassword = {
+        const newPassword = {
             oldPassword: formValues.oldPassword,
             newPassword: formValues.newPassword
-        }
+        };
         this.userService.changePassword(newPassword).subscribe(
             (response) => {
                 if (response != null) {
-                    this.router.navigate(['']);
+                    this.router.navigate([""]);
                     this.snackBar.open("Mot de Passe Change", null, { duration: 2000 });
                 }
                 else {
@@ -47,7 +47,7 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     cancel() {
-        this.router.navigate(['']);
+        this.router.navigate([""]);
     }
 
 }
