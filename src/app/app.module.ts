@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { RouterModule } from "@angular/router";
 import { appRoutes } from "routes";
@@ -54,7 +54,7 @@ import { ChangePasswordComponent } from 'app/user/changePassword.component';
     HttpModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, 
+    MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, MatProgressSpinnerModule,
     MatCardModule, MatMenuModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
   ],
   providers: [AuthenticationService, CanActivateAuthGuard, ClientService,FournisseurService,

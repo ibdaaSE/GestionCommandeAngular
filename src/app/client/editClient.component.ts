@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'app/services/client.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IClient } from 'app/shared/models';
 import { MatSnackBar } from '@angular/material';
@@ -17,9 +18,10 @@ export class EditClientComponent implements OnInit {
     adresse = new FormControl(); email = new FormControl('', Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
+    validating = false;
 
-    constructor(private clientService: ClientService, private router: Router
-        , private route: ActivatedRoute, private snackBar:MatSnackBar) { }
+    constructor(private clientService: ClientService, private location: Location
+        , private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.clientForm = new FormGroup({
@@ -46,6 +48,10 @@ export class EditClientComponent implements OnInit {
     }
 
     editClient(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newClient: IClient;
         newClient = {
             id: this.route.snapshot.params['id'],
@@ -59,18 +65,18 @@ export class EditClientComponent implements OnInit {
         }
 
         this.clientService.edit(newClient).subscribe((val) => {
-            this.router.navigate(['/clients']);
-            this.snackBar.open("success", null, {duration: 2000});
+            this.location.back();
+            this.snackBar.open("success", null, { duration: 2000 });
         },
             (err) => {
             },
             () => {
 
             });
-
+        this.validating = false;
     }
 
-    cancel(){
-        this.router.navigate(['/clients']);
+    cancel() {
+        this.location.back();
     }
 }

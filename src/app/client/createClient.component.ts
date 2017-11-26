@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'app/services/client.service';
-import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IClient } from 'app/shared/models';
 import { MatSnackBar } from '@angular/material';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'create-client',
@@ -17,8 +17,9 @@ export class CreateClientComponent implements OnInit {
     adresse = new FormControl(); email = new FormControl('', Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
+    validating = false;
 
-    constructor(private clientService: ClientService, private router: Router,
+    constructor(private clientService: ClientService, private location: Location,
         private snackBar: MatSnackBar) { }
 
     ngOnInit() {
@@ -32,6 +33,10 @@ export class CreateClientComponent implements OnInit {
     }
 
     createClient(formValues) {
+        if(this.validating){
+            return;
+        }
+        this.validating = true;
         if (this.raisonSociale.valid) {
             let newClient: IClient;
             newClient = {
@@ -45,8 +50,8 @@ export class CreateClientComponent implements OnInit {
             }
 
             this.clientService.create(newClient).subscribe((val) => {
-                this.router.navigate(['/clients']);
-                this.snackBar.open("success", null, { duration: 2000 });
+                this.location.back();
+                this.snackBar.open(newClient.raisonSociale + " ajouté", null, { duration: 2000 });
             },
                 (err) => {
                 },
@@ -54,13 +59,14 @@ export class CreateClientComponent implements OnInit {
 
                 });
         }
+        this.validating = false;
     }
 
     cancel() {
         if (this.clientForm.dirty) {
             console.log("dirty");
-        } else { 
-            this.router.navigate(['/clients']); 
+        } else {
+            this.location.back();
         }
     }
 

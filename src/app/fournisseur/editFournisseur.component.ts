@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { FournisseurService } from 'app/services/fournisseur.service';
 import { IFournisseur } from 'app/shared/models';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'edit-fournisseur',
@@ -17,9 +18,10 @@ export class EditFournisseurComponent implements OnInit {
     adresse = new FormControl(); email = new FormControl('', Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
+    validating = false;
 
-    constructor(private fournisseurService: FournisseurService, private router: Router
-        , private route: ActivatedRoute, private snackBar:MatSnackBar) { }
+    constructor(private fournisseurService: FournisseurService, private location: Location,
+        private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.fournisseurForm = new FormGroup({
@@ -46,6 +48,10 @@ export class EditFournisseurComponent implements OnInit {
     }
 
     editFournisseur(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newFournisseur: IFournisseur;
         newFournisseur = {
             id: this.route.snapshot.params['id'],
@@ -59,18 +65,18 @@ export class EditFournisseurComponent implements OnInit {
         }
 
         this.fournisseurService.edit(newFournisseur).subscribe((val) => {
-            this.router.navigate(['/fournisseurs']);
-            this.snackBar.open("success", null, {duration: 2000});
+            this.location.back();
+            this.snackBar.open("success", null, { duration: 2000 });
         },
             (err) => {
             },
             () => {
 
             });
-
+        this.validating = false;
     }
 
-    cancel(){
-        this.router.navigate(['/fournisseurs']);
+    cancel() {
+        this.location.back();
     }
 }
