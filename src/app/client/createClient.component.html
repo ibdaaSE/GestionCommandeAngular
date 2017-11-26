@@ -5,6 +5,9 @@
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                         <mat-input-container floatPlaceholder="auto" fxFlex>
                                 <input matInput formControlName="raisonSociale" type="text" placeholder="RaisonSociale *" autofocus>
+                                <mat-error *ngIf="clientForm.controls.raisonSociale.invalid">
+                                        Champ obligatoire
+                                </mat-error>
                         </mat-input-container>
                         <span fxFlex="1"></span>
                         <mat-input-container floatPlaceholder="auto" fxFlex>
@@ -19,6 +22,9 @@
                 <div fxLayout="row" fxLayoutAlign="center center">
                         <mat-input-container floatPlaceholder="auto" fxFlex>
                                 <input matInput formControlName="email" type="email" placeholder="E-mail">
+                                <mat-error *ngIf="clientForm.controls.email.touched && clientForm.controls.email.invalid">
+                                        Champ mal rempli
+                                </mat-error>
                         </mat-input-container>
                         <span fxFlex="1"></span>
                         <mat-input-container floatPlaceholder="auto" fxFlex>
@@ -40,7 +46,7 @@
                                 <span>Valider</span>
                         </button>
                         <span fxFlex="1"></span>
-                        <button mat-raised-button (click)="cancel()">
+                        <button mat-raised-button type="button" (click)="cancel()">
                                 <mat-icon>clear</mat-icon>
                                 <span>Annuler</span>
                         </button>

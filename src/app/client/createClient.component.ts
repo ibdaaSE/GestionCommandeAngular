@@ -19,7 +19,7 @@ export class CreateClientComponent implements OnInit {
     pays = new FormControl();
 
     constructor(private clientService: ClientService, private router: Router,
-    private snackBar:MatSnackBar) { }
+        private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.clientForm = new FormGroup({
@@ -31,31 +31,37 @@ export class CreateClientComponent implements OnInit {
 
     }
 
-    createClient(formValues){
-        let newClient: IClient;
-        newClient = {
-            raisonSociale: formValues.raisonSociale,
-            responsable: formValues.responsable,
-            adresse: formValues.adresse,
-            email: formValues.email,
-            cp: formValues.cp,
-            ville: formValues.ville,
-            pays: formValues.pays
-        }
+    createClient(formValues) {
+        if (this.raisonSociale.valid) {
+            let newClient: IClient;
+            newClient = {
+                raisonSociale: formValues.raisonSociale,
+                responsable: formValues.responsable,
+                adresse: formValues.adresse,
+                email: formValues.email,
+                cp: formValues.cp,
+                ville: formValues.ville,
+                pays: formValues.pays
+            }
 
-        this.clientService.create(newClient).subscribe((val) => {
-            this.router.navigate(['/clients']);
-            this.snackBar.open("success", null, {duration: 2000});
-        },
-            (err) => {
+            this.clientService.create(newClient).subscribe((val) => {
+                this.router.navigate(['/clients']);
+                this.snackBar.open("success", null, { duration: 2000 });
             },
-            () => {
+                (err) => {
+                },
+                () => {
 
-            });
+                });
+        }
     }
 
-    cancel(){
-        this.router.navigate(['/clients']);
+    cancel() {
+        if (this.clientForm.dirty) {
+            console.log("dirty");
+        } else { 
+            this.router.navigate(['/clients']); 
+        }
     }
 
 }
