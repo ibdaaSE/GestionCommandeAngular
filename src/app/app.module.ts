@@ -35,13 +35,14 @@ import { UserInfoComponent } from 'app/user/userInfo.component';
 import { CreateUserComponent } from 'app/user/createUser.component';
 import { EditUserComponent } from 'app/user/editUser.component';
 import { ChangePasswordComponent } from 'app/user/changePassword.component';
+import { EditCommandeComponent } from 'app/commande/editCommande.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
     FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent,
-    CommandeListComponent, CommandeInfoComponent, CreateCommandeComponent, CreateProduitComponent, 
+    CommandeListComponent, CommandeInfoComponent, CreateCommandeComponent, CreateProduitComponent,EditCommandeComponent, 
     UserListComponent,UserInfoComponent,CreateUserComponent,EditUserComponent,
     ChangePasswordComponent,
     ProduitInfoComponent, HomeComponent
