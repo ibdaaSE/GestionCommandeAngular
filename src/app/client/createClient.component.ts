@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'app/services/client.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IClient } from 'app/shared/models';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { Location } from '@angular/common';
+import { ConfirmationDialogComponent } from 'app/shared/confirmationDialog.component';
 
 @Component({
     selector: 'create-client',
@@ -20,7 +21,7 @@ export class CreateClientComponent implements OnInit {
     validating = false;
 
     constructor(private clientService: ClientService, private location: Location,
-        private snackBar: MatSnackBar) { }
+        public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.clientForm = new FormGroup({
@@ -33,7 +34,7 @@ export class CreateClientComponent implements OnInit {
     }
 
     createClient(formValues) {
-        if(this.validating){
+        if (this.validating) {
             return;
         }
         this.validating = true;
@@ -64,7 +65,14 @@ export class CreateClientComponent implements OnInit {
 
     cancel() {
         if (this.clientForm.dirty) {
-            console.log("dirty");
+            let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: '600px',
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
         } else {
             this.location.back();
         }

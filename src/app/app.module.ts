@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatTooltipModule, MatIconModule, MatSnackBarModule, MatInputModule, MatListModule, MatCardModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
 
 import { RouterModule } from "@angular/router";
 import { appRoutes } from "routes";
@@ -36,16 +36,17 @@ import { CreateUserComponent } from 'app/user/createUser.component';
 import { EditUserComponent } from 'app/user/editUser.component';
 import { ChangePasswordComponent } from 'app/user/changePassword.component';
 import { EditCommandeComponent } from 'app/commande/editCommande.component';
+import { ConfirmationDialogComponent } from 'app/shared/confirmationDialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent, ConfirmationDialogComponent,
     ClientListComponent,ClientInfoComponent,EditClientComponent,CreateClientComponent,
     FournisseurListComponent,FournisseurInfoComponent,EditFournisseurComponent,CreateFournisseurComponent,
     CommandeListComponent, CommandeInfoComponent, CreateCommandeComponent, CreateProduitComponent,EditCommandeComponent, 
     UserListComponent,UserInfoComponent,CreateUserComponent,EditUserComponent,
     ChangePasswordComponent,
-    ProduitInfoComponent, HomeComponent
+    ProduitInfoComponent, HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,10 +57,11 @@ import { EditCommandeComponent } from 'app/commande/editCommande.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatButtonModule, MatTooltipModule, MatInputModule, MatIconModule, MatSnackBarModule, MatListModule, MatProgressSpinnerModule,
-    MatCardModule, MatMenuModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule
+    MatCardModule, MatMenuModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule
   ],
   providers: [AuthenticationService, CanActivateAuthGuard, ClientService,FournisseurService,
               CommandeService,UserService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class AppModule { }
