@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ICommande } from 'app/shared/models';
-import { CommandeService } from 'app/services/commande.service';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { ICommande } from "app/shared/models";
+import { CommandeService } from "app/services/commande.service";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
 
 @Component({
-    selector: 'commande-info',
-    templateUrl: './commandeInfo.component.html',
-    styleUrls: ['./commandeInfo.component.css']
+    selector: "commande-info",
+    templateUrl: "./commandeInfo.component.html",
+    styleUrls: ["./commandeInfo.component.css"]
 })
 export class CommandeInfoComponent implements OnInit {
 
     @Input() commande: ICommande;
     @Output() deleteEvent = new EventEmitter();
-    
-    constructor(private commandeService: CommandeService,private router:Router) { }
+
+    constructor(private commandeService: CommandeService, private router: Router) { }
 
     ngOnInit() { }
 
@@ -30,8 +30,8 @@ export class CommandeInfoComponent implements OnInit {
             });
     }
 
-    edit(){
-        this.router.navigate(["/commandes/edit",this.commande.id]);
+    edit() {
+        this.router.navigate(["/commandes/edit", this.commande.id]);
     }
 
     private handleError(error: Response) {

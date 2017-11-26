@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlexFill>
-        <form [formGroup]="userForm" (ngSubmit)="editUser(userForm.value)" fxLayout="column" fxLayoutAlign="space-evenly stretch"
+        <form [formGroup]="userForm" fxLayout="column" fxLayoutAlign="space-evenly stretch"
                 class="main-form" fxFlex>
                 <h1>Editer Utilisateur</h1>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -23,7 +23,7 @@
                 </div>
                
                 <div fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-raised-button class="submit-button" type="submit">
+                        <button mat-raised-button class="submit-button" (click)="editUser(userForm.value)" type="button">
                                 <mat-icon>done</mat-icon>
                                 <span>Valider</span>
                         </button>

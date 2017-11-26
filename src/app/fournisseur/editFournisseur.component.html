@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlexFill>
 
-        <form [formGroup]="fournisseurForm" (ngSubmit)="editFournisseur(fournisseurForm.value)" fxLayout="column" fxLayoutAlign="space-evenly stretch"
+        <form [formGroup]="fournisseurForm" fxLayout="column" fxLayoutAlign="space-evenly stretch"
                 class="main-form" fxFlex>
                 <h1>Modifier les informations du fournisseur</h1>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -36,7 +36,7 @@
                         </mat-input-container>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                        <button *ngIf="!validating" mat-raised-button class="submit-button" type="submit">
+                        <button *ngIf="!validating" mat-raised-button class="submit-button" (click)="editFournisseur(fournisseurForm.value)" type="button">
                                 <mat-icon>done</mat-icon>
                                 <span>Valider</span>
                         </button>

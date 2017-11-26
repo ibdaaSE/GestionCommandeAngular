@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
-import { IFournisseur } from 'app/shared/models';
-import { FournisseurService } from 'app/services/fournisseur.service';
+import { Component, OnInit } from "@angular/core";
+import { MatSnackBar } from "@angular/material";
+import { Router } from "@angular/router";
+import { IFournisseur } from "app/shared/models";
+import { FournisseurService } from "app/services/fournisseur.service";
 
 @Component({
-    selector: 'fournisseur-list',
-    templateUrl: './fournisseurList.component.html',
-    styleUrls: ['./fournisseurList.component.css']
+    selector: "fournisseur-list",
+    templateUrl: "./fournisseurList.component.html",
+    styleUrls: ["./fournisseurList.component.css"]
 })
 export class FournisseurListComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class FournisseurListComponent implements OnInit {
     }
 
     getFilteredList() {
-        let observable = this.service.getFilteredList(this.filter, this.pageIndex);
+        const observable = this.service.getFilteredList(this.filter, this.pageIndex);
         observable.subscribe(newList => {
             this.filteredList = newList;
             this.fillPositionPage();
@@ -74,11 +74,11 @@ export class FournisseurListComponent implements OnInit {
     }
 
     hasNextPage() {
-        return (this.count > (this.pageIndex + this.pageLength))
+        return (this.count > (this.pageIndex + this.pageLength));
     }
 
     hasPreviousPage() {
-        return (this.pageIndex > 0)
+        return (this.pageIndex > 0);
     }
 
     fillPositionPage() {
@@ -87,7 +87,7 @@ export class FournisseurListComponent implements OnInit {
     }
 
     updatecount() {
-        let observable = this.service.count(this.filter);
+        const observable = this.service.count(this.filter);
         observable.subscribe(count => {
             this.count = +count;
         });
@@ -99,6 +99,6 @@ export class FournisseurListComponent implements OnInit {
     }
 
     goToCreate() {
-        this.router.navigate(['/fournisseurs/create']);
+        this.router.navigate(["/fournisseurs/create"]);
     }
 }

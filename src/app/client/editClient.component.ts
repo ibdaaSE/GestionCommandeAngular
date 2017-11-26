@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ClientService } from 'app/services/client.service';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { IClient } from 'app/shared/models';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit } from "@angular/core";
+import { ClientService } from "app/services/client.service";
+import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { IClient } from "app/shared/models";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
-    selector: 'edit-client',
-    templateUrl: './editClient.component.html',
-    styleUrls: ['./editClient.component.css']
+    selector: "edit-client",
+    templateUrl: "./editClient.component.html",
+    styleUrls: ["./editClient.component.css"]
 })
 export class EditClientComponent implements OnInit {
 
     clientForm: FormGroup;
-    raisonSociale = new FormControl('', Validators.required); responsable = new FormControl();
-    adresse = new FormControl(); email = new FormControl('', Validators.email);
+    raisonSociale = new FormControl("", Validators.required); responsable = new FormControl();
+    adresse = new FormControl(); email = new FormControl("", Validators.email);
     cp = new FormControl(); ville = new FormControl();
     pays = new FormControl();
     validating = false;
@@ -30,7 +30,7 @@ export class EditClientComponent implements OnInit {
             pays: this.pays
         });
 
-        this.clientService.find(this.route.snapshot.params['id']).subscribe(
+        this.clientService.find(this.route.snapshot.params["id"]).subscribe(
             client => {
                 this.initClientForm(client);
             }
@@ -54,7 +54,7 @@ export class EditClientComponent implements OnInit {
         this.validating = true;
         let newClient: IClient;
         newClient = {
-            id: this.route.snapshot.params['id'],
+            id: this.route.snapshot.params["id"],
             raisonSociale: formValues.raisonSociale,
             responsable: formValues.responsable,
             adresse: formValues.adresse,
@@ -62,7 +62,7 @@ export class EditClientComponent implements OnInit {
             cp: formValues.cp,
             ville: formValues.ville,
             pays: formValues.pays
-        }
+        };
 
         this.clientService.edit(newClient).subscribe((val) => {
             this.location.back();

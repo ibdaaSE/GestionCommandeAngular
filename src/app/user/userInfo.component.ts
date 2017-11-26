@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IUser } from 'app/shared/models';
-import { Router } from '@angular/router';
-import { UserService } from 'app/services/user.service';
-import { Observable } from 'rxjs/Observable';
-import { log } from 'util';
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { IUser } from "app/shared/models";
+import { Router } from "@angular/router";
+import { UserService } from "app/services/user.service";
+import { Observable } from "rxjs/Observable";
+import { log } from "util";
 
 @Component({
-    selector: 'user-info',
-    templateUrl: './userInfo.component.html',
-    styleUrls: ['./userInfo.component.css']
+    selector: "user-info",
+    templateUrl: "./userInfo.component.html",
+    styleUrls: ["./userInfo.component.css"]
 })
 export class UserInfoComponent implements OnInit {
     @Input() user: IUser;
@@ -40,10 +40,10 @@ export class UserInfoComponent implements OnInit {
             id: this.user.id,
             username: this.user.username,
             enabled: !this.user.enabled
-        }
+        };
         this.userService.edit(newUser).subscribe(
             (val) => {
-                let etat : String;
+                let etat: String;
                 etat = val.enabled ? "active" : "desactive";
                 this.refreshEvent.emit("Utilisater " + etat);
             },

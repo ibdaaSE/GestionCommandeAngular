@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ICommande } from 'app/shared/models';
-import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
-import { CommandeService } from 'app/services/commande.service';
+import { Component, OnInit } from "@angular/core";
+import { ICommande } from "app/shared/models";
+import { MatSnackBar } from "@angular/material";
+import { Router } from "@angular/router";
+import { CommandeService } from "app/services/commande.service";
 
 @Component({
-    selector: 'commande-list',
-    templateUrl: './commandeList.component.html',
-    styleUrls: ['./commandeList.component.css']
+    selector: "commande-list",
+    templateUrl: "./commandeList.component.html",
+    styleUrls: ["./commandeList.component.css"]
 })
 export class CommandeListComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class CommandeListComponent implements OnInit {
     }
 
     getFilteredList() {
-        let observable = this.service.getFilteredList(this.filter, this.pageIndex);
+        const observable = this.service.getFilteredList(this.filter, this.pageIndex);
         observable.subscribe(newList => {
             this.filteredList = newList;
             this.fillPositionPage();
@@ -63,7 +63,7 @@ export class CommandeListComponent implements OnInit {
 
     getPreviousPage() {
         if (!this.hasPreviousPage()) return;
-        this.pageIndex = (this.pageIndex - this.pageLength) < 0? 0 : this.pageIndex - this.pageLength;
+        this.pageIndex = (this.pageIndex - this.pageLength) < 0 ? 0 : this.pageIndex - this.pageLength;
         this.getFilteredList();
     }
 
@@ -74,20 +74,20 @@ export class CommandeListComponent implements OnInit {
     }
 
     hasNextPage() {
-        return (this.count > (this.pageIndex + this.pageLength))
+        return (this.count > (this.pageIndex + this.pageLength));
     }
 
     hasPreviousPage() {
-        return (this.pageIndex > 0)
+        return (this.pageIndex > 0);
     }
 
-    fillPositionPage(){
+    fillPositionPage() {
         this.nextPageEnabled = this.hasNextPage();
         this.previousPageEnabled = this.hasPreviousPage();
     }
 
     updatecount() {
-        let observable = this.service.count(this.filter);
+        const observable = this.service.count(this.filter);
         observable.subscribe(count => {
             this.count = +count;
         });
@@ -99,6 +99,6 @@ export class CommandeListComponent implements OnInit {
     }
 
     goToCreate() {
-        this.router.navigate(['/commandes/create']);
+        this.router.navigate(["/commandes/create"]);
     }
 }

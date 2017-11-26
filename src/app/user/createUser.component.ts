@@ -1,36 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from 'app/services/user.service';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { IUser } from 'app/shared/models';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UserService } from "app/services/user.service";
+import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material";
+import { IUser } from "app/shared/models";
 
 @Component({
-    selector: 'create-user',
-    templateUrl: './createUser.component.html',
-    styleUrls: ['./createUser.component.css']
+    selector: "create-user",
+    templateUrl: "./createUser.component.html",
+    styleUrls: ["./createUser.component.css"]
 })
 export class CreateUserComponent implements OnInit {
     userForm: FormGroup;
-    username = new FormControl('', Validators.required); 
-    password = new FormControl('', Validators.required); 
+    username = new FormControl("", Validators.required);
+    password = new FormControl("", Validators.required);
     firstname = new FormControl();
-    lastname = new FormControl(); 
+    lastname = new FormControl();
     email = new FormControl();
 
     constructor(private userService: UserService, private router: Router,
-        private snackBar:MatSnackBar) { }
+        private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.userForm = new FormGroup({
-            username: this.username,password : this.password,
+            username: this.username, password : this.password,
             firstname: this.firstname,
             lastname: this.lastname, email: this.email
         });
 
      }
 
-     createUser(formValues){
+     createUser(formValues) {
         let newUser: IUser;
         newUser = {
             username : formValues.username,
@@ -41,10 +41,10 @@ export class CreateUserComponent implements OnInit {
             enabled : true,
             lastPasswordResetDate : new Date(),
             role : { id : 1}
-        }
+        };
 
         this.userService.create(newUser).subscribe((val) => {
-            this.router.navigate(['/users']);
+            this.router.navigate(["/users"]);
             this.snackBar.open("success", null, {duration: 2000});
         },
             (err) => {
@@ -54,8 +54,8 @@ export class CreateUserComponent implements OnInit {
             });
     }
 
-    cancel(){
-        this.router.navigate(['/users']);
+    cancel() {
+        this.router.navigate(["/users"]);
     }
 
 }

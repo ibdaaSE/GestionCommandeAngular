@@ -1,4 +1,4 @@
-<form [formGroup]="commandeForm" (ngSubmit)="createCommande(commandeForm.value)" fxLayout="column" fxLayoutAlign=" stretch"
+<form [formGroup]="commandeForm" fxLayout="column" fxLayoutAlign=" stretch"
     fxFill>
     <div>
         <span fxFlex="10px"></span>
@@ -73,7 +73,7 @@
     </div>
     <span fxFlex="10px"></span>
     <div fxLayout="row" fxLayoutAlign="center center">
-        <button mat-raised-button class="submit-button" type="submit">
+        <button mat-raised-button class="submit-button" (click)="createCommande(commandeForm.value)"  type="button">
             <mat-icon>done</mat-icon>
             <span>Valider</span>
         </button>

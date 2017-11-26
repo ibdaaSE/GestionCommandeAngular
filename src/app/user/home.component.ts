@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from 'app/services/authentication.service';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "app/services/authentication.service";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+    selector: "home-component",
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
 
@@ -17,10 +17,10 @@ export class HomeComponent implements OnInit {
     password = new FormControl();
 
     loading = false;
-    error = '';
+    error = "";
 
     constructor(
-        private router: Router, private authenticationService: AuthenticationService, private snackBar: MatSnackBar) { 
+        private router: Router, private authenticationService: AuthenticationService, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     }
 
     login(formValues) {
-        if(!formValues.userName || !formValues.password){
+        if (!formValues.userName || !formValues.password) {
             this.snackBar.open("Nom d'utilisateur ou mot de passe vide", null, { duration: 2000 });
             return;
         }
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
             result => {
                 if (result === true) {
                     // login successful
-                    this.router.navigate(['/clients']);
+                    this.router.navigate(["/clients"]);
                     this.snackBar.open(formValues.userName + " connecté avec success", null, { duration: 2000 });
                 } else {
                     // login failed
