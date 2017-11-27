@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { UserService } from "app/services/user.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { MatSnackBar } from "@angular/material";
+import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
+import { MatSnackBar, MatDialog } from "@angular/material";
 import { IUser } from "app/shared/models";
+import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
     selector: "edit-user",
@@ -16,9 +18,10 @@ export class EditUserComponent implements OnInit {
     firstname = new FormControl();
     lastname = new FormControl();
     email = new FormControl();
+    validating = false;
 
-    constructor(private userService: UserService, private router: Router
-        , private route: ActivatedRoute,
+    constructor(private userService: UserService, private location: Location,
+        public dialog: MatDialog, private route: ActivatedRoute,
         private snackBar: MatSnackBar) { }
 
     ngOnInit() {
@@ -47,6 +50,10 @@ export class EditUserComponent implements OnInit {
     }
 
     editUser(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newUser: IUser;
         newUser = {
             id: this.route.snapshot.params["id"],
@@ -57,7 +64,7 @@ export class EditUserComponent implements OnInit {
         };
 
         this.userService.edit(newUser).subscribe((val) => {
-            this.router.navigate(["/users"]);
+            this.location.back();
             this.snackBar.open("success", null, { duration: 2000 });
         },
             (err) => {
@@ -65,9 +72,21 @@ export class EditUserComponent implements OnInit {
             () => {
 
             });
+        this.validating = false;
     }
 
     cancel() {
-        this.router.navigate(["/users"]);
+        if (this.userForm.dirty) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
+        } else {
+            this.location.back();
+        }
     }
 }

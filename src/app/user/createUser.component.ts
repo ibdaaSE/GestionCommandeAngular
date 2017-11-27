@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "app/services/user.service";
-import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar, MatDialog } from "@angular/material";
+import { Location } from "@angular/common";
 import { IUser } from "app/shared/models";
+import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
     selector: "create-user",
@@ -17,45 +18,62 @@ export class CreateUserComponent implements OnInit {
     firstname = new FormControl();
     lastname = new FormControl();
     email = new FormControl();
+    validating = false;
+    hidePassword = true;
 
-    constructor(private userService: UserService, private router: Router,
-        private snackBar: MatSnackBar) { }
+    constructor(private userService: UserService, private location: Location,
+        public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.userForm = new FormGroup({
-            username: this.username, password : this.password,
+            username: this.username, password: this.password,
             firstname: this.firstname,
             lastname: this.lastname, email: this.email
         });
+    }
 
-     }
-
-     createUser(formValues) {
+    createUser(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newUser: IUser;
         newUser = {
-            username : formValues.username,
-            password : formValues.password,
+            username: formValues.username,
+            password: formValues.password,
             firstname: formValues.firstname,
             lastname: formValues.lastname,
             email: formValues.email,
-            enabled : true,
-            lastPasswordResetDate : new Date(),
-            role : { id : 1}
+            enabled: true,
+            lastPasswordResetDate: new Date(),
+            role: { id: 1 }
         };
 
         this.userService.create(newUser).subscribe((val) => {
-            this.router.navigate(["/users"]);
-            this.snackBar.open("success", null, {duration: 2000});
+            this.location.back();
+            this.snackBar.open("success", null, { duration: 2000 });
         },
             (err) => {
             },
             () => {
 
             });
+        this.validating = false;
     }
 
     cancel() {
-        this.router.navigate(["/users"]);
+        if (this.userForm.dirty) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
+        } else {
+            this.location.back();
+        }
     }
 
 }

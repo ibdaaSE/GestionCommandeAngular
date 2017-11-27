@@ -4,7 +4,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { IClient } from "app/shared/models";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar, MatDialog } from "@angular/material";
+import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
     selector: "edit-client",
@@ -20,8 +21,8 @@ export class EditClientComponent implements OnInit {
     pays = new FormControl();
     validating = false;
 
-    constructor(private clientService: ClientService, private location: Location
-        , private route: ActivatedRoute, private snackBar: MatSnackBar) { }
+    constructor(private clientService: ClientService, private location: Location,
+        public dialog: MatDialog, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.clientForm = new FormGroup({
@@ -77,6 +78,17 @@ export class EditClientComponent implements OnInit {
     }
 
     cancel() {
-        this.location.back();
+        if (this.clientForm.dirty) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
+        } else {
+            this.location.back();
+        }
     }
 }

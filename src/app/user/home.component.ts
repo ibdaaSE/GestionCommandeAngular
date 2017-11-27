@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
     loading = false;
     error = "";
 
+    validating = false;
+
     constructor(
         private router: Router, private authenticationService: AuthenticationService, private snackBar: MatSnackBar) {
     }
@@ -33,6 +35,10 @@ export class HomeComponent implements OnInit {
     }
 
     login(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         if (!formValues.userName || !formValues.password) {
             this.snackBar.open("Nom d'utilisateur ou mot de passe vide", null, { duration: 2000 });
             return;
@@ -57,5 +63,6 @@ export class HomeComponent implements OnInit {
                 this.error = error;
                 this.snackBar.open("Nom d'utilisateur ou mot de passe incorrect", null, { duration: 2000 });
             });
+            this.validating = false;
     }
 }

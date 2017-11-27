@@ -8,3 +8,11 @@
     width: 40px;
     padding: 0px;
 }
+
+.active-account{
+    color: #03a9f4;
+}
+
+.inactive-account{
+    color: rgb(180, 180, 180);
+}

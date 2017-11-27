@@ -6,8 +6,9 @@ import { CommandeService } from "app/services/commande.service";
 import { ClientService } from "app/services/client.service";
 import { Http } from "@angular/http";
 import { ActivatedRoute } from "@angular/router";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar, MatDialog } from "@angular/material";
 import { Location } from "@angular/common";
+import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
     selector: "edit-commande",
@@ -33,8 +34,10 @@ export class EditCommandeComponent implements OnInit {
     totalAchatsTTC = 0;
     touchedList = false;
 
+    validating = false;
+
     constructor(private service: CommandeService, private clientService: ClientService, private http: Http, private location: Location
-        , private route: ActivatedRoute, private snackBar: MatSnackBar) {
+        , private route: ActivatedRoute, private snackBar: MatSnackBar, public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -88,7 +91,6 @@ export class EditCommandeComponent implements OnInit {
         this.produits = response.produits;
         this.totalAchatsHT = response.commande.totalAchatHT;
         this.totalAchatsTTC = response.commande.totalAchatTTC;
-
     }
 
     filterClients(filter: String): IClient[] {
@@ -124,6 +126,10 @@ export class EditCommandeComponent implements OnInit {
     }
 
     editCommande(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newCommande: ICommande;
         newCommande = {
             id: this.route.snapshot.params["id"],
@@ -145,18 +151,30 @@ export class EditCommandeComponent implements OnInit {
         });
         this.service.edit(newCommande, this.produits, this.touchedList).subscribe(
             (val) => {
-                this.snackBar.open("Commande Modifiee", null, { duration: 2000 });
+                this.snackBar.open("Commande N°" + formValues.numero + " Modifiée", null, { duration: 2000 });
                 this.location.back();
             },
             (err) => {
-                this.snackBar.open("Commande Non Modifiee", null, { duration: 2000 });
+                this.snackBar.open("Commande Non Modifiée", null, { duration: 2000 });
             },
             () => {
 
             });
+        this.validating = false;
     }
 
     cancel() {
-        this.location.back();
+        if (this.commandeForm.dirty || this.touchedList) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
+        } else {
+            this.location.back();
+        }
     }
 }

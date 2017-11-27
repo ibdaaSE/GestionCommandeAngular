@@ -8,6 +8,8 @@ import { ClientService } from "app/services/client.service";
 import { Http, RequestOptions, Response, Headers } from "@angular/http";
 import { CommandeService } from "app/services/commande.service";
 import { Location } from "@angular/common";
+import { MatDialog } from "@angular/material";
+import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
     selector: "create-commande",
@@ -31,7 +33,10 @@ export class CreateCommandeComponent implements OnInit {
     totalAchatsHT = 0;
     totalAchatsTTC = 0;
 
-    constructor(private service: CommandeService, private clientService: ClientService, private http: Http, private location: Location) {
+    validating = false;
+
+    constructor(private service: CommandeService, private clientService: ClientService, private http: Http, private location: Location,
+        public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -86,7 +91,6 @@ export class CreateCommandeComponent implements OnInit {
         this.produits.push(produit);
         this.totalAchatsHT = this.totalAchatsHT + produit.montantHT;
         this.totalAchatsTTC = this.totalAchatsTTC + produit.montantTTC;
-
     }
 
     deletedProduit(produitToDelete: IProduit) {
@@ -98,6 +102,10 @@ export class CreateCommandeComponent implements OnInit {
     }
 
     createCommande(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newCommande: ICommande;
         newCommande = {
             numero: formValues.numero,
@@ -116,11 +124,23 @@ export class CreateCommandeComponent implements OnInit {
             fournisseur = { "id": prod.fournisseur.id };
             prod.fournisseur = fournisseur;
         });
+        this.validating = false;
         this.service.create(newCommande, this.produits);
         this.location.back();
     }
 
     cancel() {
-        this.location.back();
+        if (this.commandeForm.dirty || this.produits.length > 0) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
+        } else {
+            this.location.back();
+        }
     }
 }

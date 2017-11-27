@@ -1,8 +1,10 @@
 <div class="row-container" fxLayout="row" fxLayoutAlign=" center">
     <p fxFlex>{{user.username}}</p>
     <p fxFlex>{{user.firstname}}</p>
-    <p fxFlex="100px">{{user.lastname}}</p>
-    <p fxFlex="100px">{{user.email}}</p>
+    <p fxFlex>{{user.lastname}}</p>
+    <p fxFlex>{{user.email}}</p>
+    <p class="active-account" *ngIf="user.enabled" fxFlex="100px">Activé</p>
+    <p class="inactive-account" *ngIf="!user.enabled" fxFlex="100px">Désactivé</p>
    
     <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="userMenu">
         <mat-icon>more_vert</mat-icon>
@@ -17,9 +19,10 @@
             <span>Supprimer</span>
         </button>
         <button mat-menu-item (click)="enableDisableUser()">
-                <mat-icon>delete</mat-icon>
-                <span *ngIf="user.enabled">desactiver</span>
-                <span *ngIf="!user.enabled">activer</span>                
+                <mat-icon *ngIf="user.enabled">do_not_disturb_alt</mat-icon>
+                <span *ngIf="user.enabled">Désactiver</span>
+                <mat-icon *ngIf="!user.enabled">verified_user</mat-icon>
+                <span *ngIf="!user.enabled">Activer</span>                
             </button>
     </mat-menu>
 </div>

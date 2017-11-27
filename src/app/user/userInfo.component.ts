@@ -26,7 +26,7 @@ export class UserInfoComponent implements OnInit {
                 this.refreshEvent.emit("Impossible de supprimer cet utilisateur");
             },
             () => {
-                this.refreshEvent.emit("Utilisater supprime");
+                this.refreshEvent.emit("Utilisater supprimé");
             });
     }
 
@@ -44,11 +44,11 @@ export class UserInfoComponent implements OnInit {
         this.userService.edit(newUser).subscribe(
             (val) => {
                 let etat: String;
-                etat = val.enabled ? "active" : "desactive";
-                this.refreshEvent.emit("Utilisater " + etat);
+                etat = val.enabled ? "activé" : "désactivé";
+                this.refreshEvent.emit("L'utilisateur " + val.username + " " + etat);
             },
             (err) => {
-                this.refreshEvent.emit("Impossible de desactiver cet utilisateur");
+                this.refreshEvent.emit("Impossible de désactiver cet utilisateur");
             },
             () => {
 

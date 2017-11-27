@@ -28,6 +28,8 @@ export class CreateProduitComponent implements OnInit, OnChanges {
     @Input() edittedProduit: IProduit;
     @Output() addProduitEvent = new EventEmitter;
 
+    validating = false;
+
     constructor(private FournisseurService: FournisseurService) {
     }
 
@@ -91,6 +93,10 @@ export class CreateProduitComponent implements OnInit, OnChanges {
     }
 
     createProduit(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         let newProduit: IProduit;
         newProduit = {
             delai: formValues.delai,
@@ -102,6 +108,7 @@ export class CreateProduitComponent implements OnInit, OnChanges {
         this.addProduitEvent.emit(newProduit);
         this.selectedFournisseur = null;
         this.produitForm.reset();
+        this.validating = false;
     }
 
     clear() {

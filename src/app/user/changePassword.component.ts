@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
     oldPassword = new FormControl();
     newPassword = new FormControl();
     newPassword2 = new FormControl();
+    validating = false;
 
     constructor(private userService: UserService, private router: Router,
         private snackBar: MatSnackBar) { }
@@ -28,6 +29,10 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     changePassword(formValues) {
+        if (this.validating) {
+            return;
+        }
+        this.validating = true;
         const newPassword = {
             oldPassword: formValues.oldPassword,
             newPassword: formValues.newPassword
@@ -43,6 +48,7 @@ export class ChangePasswordComponent implements OnInit {
                 }
             }
         );
+        this.validating = false;
 
     }
 

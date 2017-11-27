@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar, MatDialog } from "@angular/material";
 import { FournisseurService } from "app/services/fournisseur.service";
 import { IFournisseur } from "app/shared/models";
 import { Location } from "@angular/common";
+import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
     selector: "edit-fournisseur",
@@ -21,7 +22,7 @@ export class EditFournisseurComponent implements OnInit {
     validating = false;
 
     constructor(private fournisseurService: FournisseurService, private location: Location,
-        private route: ActivatedRoute, private snackBar: MatSnackBar) { }
+        public dialog: MatDialog, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.fournisseurForm = new FormGroup({
@@ -77,6 +78,17 @@ export class EditFournisseurComponent implements OnInit {
     }
 
     cancel() {
-        this.location.back();
+        if (this.fournisseurForm.dirty) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
+                data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) this.location.back();
+            });
+        } else {
+            this.location.back();
+        }
     }
 }

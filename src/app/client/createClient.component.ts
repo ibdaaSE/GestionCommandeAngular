@@ -65,8 +65,8 @@ export class CreateClientComponent implements OnInit {
 
     cancel() {
         if (this.clientForm.dirty) {
-            let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                width: '600px',
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: "600px",
                 data: { message: "Voulez vous vraiment quitter cette page sans valider ?" }
             });
 
