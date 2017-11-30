@@ -14,12 +14,21 @@
       matTooltipPosition="after">
       <mat-icon>assignment</mat-icon>
     </button>
-    <button mat-button [routerLink]="['/users']" routerLinkActive="active-module" matTooltip="Gestion des utilisateurs"
-      matTooltipPosition="after">
+    <button mat-button [routerLink]="['/users']" routerLinkActive="active-module" matTooltip="Gestion des utilisateurs" matTooltipPosition="after">
       <mat-icon>people</mat-icon>
     </button>
     <span fxFlex></span>
-    <button mat-button (click)="logout()" matTooltip="Déconnexion" matTooltipPosition="after">
+    <mat-menu class="user-menu" #userMenu="matMenu" yPosition="above" xPosition="before" [overlapTrigger]="false">
+      <button mat-menu-item (click)="goToChangePassword()">
+        <mat-icon>cached</mat-icon>
+        <span>Changer mon mot de passe</span>
+      </button>
+      <button class="disconnect-button" mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Se déconnecter</span>
+      </button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltip="Mon compte" matTooltipPosition="after">
       <mat-icon>account_circle</mat-icon>
     </button>
   </div>

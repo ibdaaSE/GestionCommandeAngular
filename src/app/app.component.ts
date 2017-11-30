@@ -54,4 +54,8 @@ export class AppComponent implements OnInit {
     this.hasAccessFournisseurs = this.hasPrevilege("fournisseurs");
     this.hasAccessCommandes = this.hasPrevilege("commandes");
   }
+
+  goToChangePassword() {
+    this.router.navigate(["/changePassword"]);
+  }
 }

@@ -6,7 +6,7 @@
     <p fxFlex="100px">{{client.pays}}</p>
     <p fxFlex>{{client.responsable}}</p>
     <p fxFlex="150px">{{client.email}}</p>
-    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="clientMenu">
+    <button mat-icon-button [matMenuTriggerFor]="clientMenu">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #clientMenu="matMenu">

@@ -1,15 +1,17 @@
-<div fxLayout="row" fxLayoutAlign=" center">
+<div class="produit" fxLayout="row" fxLayoutAlign=" center">
     <span fxFlex="10px"></span>
-    <p fxFlex>{{produit.fournisseur.raisonSociale}}</p>
+    <p fxFlex>{{produit.fournisseur?.raisonSociale}}</p>
     <span fxFlex="10px"></span>
     <p fxFlex>{{produit.produits}}</p>
     <span fxFlex="10px"></span>
-    <p fxFlex="150px">{{produit.delai | date: 'dd/MM/yyyy'}}</p>
+    <p fxFlex="100px">{{produit.delai | date: 'dd/MM/yyyy'}}</p>
     <span fxFlex="10px"></span>
-    <p fxFlex="150px">{{produit.montantHT | number : '1.2-2'}} €</p>
+    <p class="price-align" fxFlex="120px">{{produit.montantHT | number : '1.2-2'}} €</p>
     <span fxFlex="10px"></span>
-    <p fxFlex="150px">{{produit.montantTTC | number : '1.2-2'}} €</p>
-    <span fxFlex="10px"></span>
-    <button mat-button (click)="deleteProduit()" fxFlex="40px">X</button>
+    <p class="price-align" fxFlex="120px">{{produit.montantTTC | number : '1.2-2'}} €</p>
+    <span fxFlex="55px"></span>
+    <button mat-icon-button (click)="deleteProduit()" fxFlex="40px">
+        <mat-icon>delete_forever</mat-icon>
+    </button>
     <span fxFlex="10px"></span>
 </div>

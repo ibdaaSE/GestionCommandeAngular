@@ -1,12 +1,11 @@
 <form [formGroup]="produitForm" fxLayout="row" fxLayoutAlign="center center">
     <span fxFlex="10px"></span>
-    <div *ngIf="selectedFournisseur" fxFlex fxLayout="row" fxLayoutAlign=" center">
+    <div class="selected-fournisseur-container" *ngIf="selectedFournisseur" fxFlex fxLayout="row" fxLayoutAlign=" center">
         <p>Fournisseur : {{ selectedFournisseur.raisonSociale }}
-            <br>
-            <span *ngIf="selectedFournisseur.responsable">Responsable : {{ selectedFournisseur.responsable }}</span>
         </p>
         <span fxFlex></span>
-        <button mat-button (click)="clearSelectedFournisseur()" fxFlex="40px" matTooltip="Annuler la sélection de ce fournisseur" matTooltipPosition="after">X</button>
+        <button mat-button (click)="clearSelectedFournisseur()" fxFlex="40px" matTooltip="Annuler la sélection de ce fournisseur"
+            matTooltipPosition="after">X</button>
         <span fxFlex="10px"></span>
     </div>
     <mat-form-field *ngIf="!selectedFournisseur" fxFlex>
@@ -22,25 +21,26 @@
         <input matInput formControlName="produits" type="text" placeholder="Produits">
     </mat-input-container>
     <span fxFlex="10px"></span>
-    <mat-form-field fxFlex="150px">
+    <mat-form-field fxFlex="100px">
         <input matInput [matDatepicker]="picker" placeholder="Délai" formControlName="delai">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <span fxFlex="10px"></span>
-    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
+    <mat-input-container floatPlaceholder="auto" fxFlex="120px">
         <input matInput formControlName="montantHT" type="number" placeholder="Montant-HT">
     </mat-input-container>
     <span fxFlex="10px"></span>
-    <mat-input-container floatPlaceholder="auto" fxFlex="150px">
+    <mat-input-container floatPlaceholder="auto" fxFlex="120px">
         <input matInput formControlName="montantTTC" type="number" placeholder="MontantTTC">
     </mat-input-container>
     <span fxFlex="10px"></span>
-    <button mat-raised-button class="submit-button" (click)="createProduit(produitForm.value)" type="button" fxFlex="40px">
+    <button class="add-button" *ngIf="!validating" type="button" mat-mini-fab (click)="createProduit(produitForm.value)" matTooltip="Ajouter ce produit" matTooltipPosition="below">
         <mat-icon>add</mat-icon>
     </button>
-    <button mat-raised-button type="reset" fxFlex="40px" (click)="clear()"  >
-        <mat-icon>add</mat-icon>
+    <span fxFlex="5px"></span>
+    <button type="reset" mat-icon-button (click)="clear()" matTooltip="Effacer les informations" matTooltipPosition="below">
+        <mat-icon>clear</mat-icon>
     </button>
     <span fxFlex="10px"></span>
 </form>

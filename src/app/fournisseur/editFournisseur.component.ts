@@ -53,27 +53,29 @@ export class EditFournisseurComponent implements OnInit {
             return;
         }
         this.validating = true;
-        let newFournisseur: IFournisseur;
-        newFournisseur = {
-            id: this.route.snapshot.params["id"],
-            raisonSociale: formValues.raisonSociale,
-            responsable: formValues.responsable,
-            adresse: formValues.adresse,
-            email: formValues.email,
-            cp: formValues.cp,
-            ville: formValues.ville,
-            pays: formValues.pays
-        };
+        if (this.raisonSociale.valid) {
+            let newFournisseur: IFournisseur;
+            newFournisseur = {
+                id: this.route.snapshot.params["id"],
+                raisonSociale: formValues.raisonSociale,
+                responsable: formValues.responsable,
+                adresse: formValues.adresse,
+                email: formValues.email,
+                cp: formValues.cp,
+                ville: formValues.ville,
+                pays: formValues.pays
+            };
 
-        this.fournisseurService.edit(newFournisseur).subscribe((val) => {
-            this.location.back();
-            this.snackBar.open("success", null, { duration: 2000 });
-        },
-            (err) => {
+            this.fournisseurService.edit(newFournisseur).subscribe((val) => {
+                this.location.back();
+                this.snackBar.open("Le fournisseur : " + formValues.raisonSociale + " modifié", null, { duration: 2000 });
             },
-            () => {
+                (err) => {
+                },
+                () => {
 
-            });
+                });
+        }
         this.validating = false;
     }
 

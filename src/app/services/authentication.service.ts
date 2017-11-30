@@ -68,7 +68,6 @@ export class AuthenticationService {
 
     getPrevileges() {
         const previleges = JSON.parse(localStorage.getItem("previleges"));
-        this.previleges.next(previleges.previleges);
-        console.log("previleges fetched !!!");
+        if (previleges) this.previleges.next(previleges.previleges);
     }
 }

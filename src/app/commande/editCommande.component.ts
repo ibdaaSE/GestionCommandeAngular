@@ -110,6 +110,13 @@ export class EditCommandeComponent implements OnInit {
     }
 
     addProduit(produit: IProduit) {
+        const existingProduits = this.produits.filter((p: IProduit) =>
+            !p.fournisseur || !produit.fournisseur ? p.produits === produit.produits :
+                (p.fournisseur.id === produit.fournisseur.id && p.produits === produit.produits));
+        if (existingProduits.length > 0) {
+            this.snackBar.open("Ce produit existe déjà", null, { duration: 2000 });
+            return;
+        }
         this.produits.push(produit);
         this.totalAchatsHT = this.totalAchatsHT + produit.montantHT;
         this.totalAchatsTTC = this.totalAchatsTTC + produit.montantTTC;
@@ -118,7 +125,8 @@ export class EditCommandeComponent implements OnInit {
 
     deletedProduit(produitToDelete: IProduit) {
         this.produits = this.produits.filter((produit: IProduit) =>
-            produit.fournisseur.id !== produitToDelete.fournisseur.id);
+        !produit.fournisseur || !produitToDelete.fournisseur ? produit.produits !== produitToDelete.produits :
+            (produit.fournisseur.id !== produitToDelete.fournisseur.id) || (produit.produits !== produitToDelete.produits));
         this.totalAchatsHT = this.totalAchatsHT - produitToDelete.montantHT;
         this.totalAchatsTTC = this.totalAchatsTTC - produitToDelete.montantTTC;
         this.edittedProduit = produitToDelete;
@@ -130,6 +138,11 @@ export class EditCommandeComponent implements OnInit {
             return;
         }
         this.validating = true;
+        if (!this.selectedClient) {
+            this.snackBar.open("Veuillez sélectionner un client", null, { duration: 2000 });
+            this.validating = false;
+            return;
+        }
         let newCommande: ICommande;
         newCommande = {
             id: this.route.snapshot.params["id"],
@@ -146,8 +159,10 @@ export class EditCommandeComponent implements OnInit {
         };
         this.produits.map((prod: IProduit) => {
             let fournisseur;
-            fournisseur = { "id": prod.fournisseur.id };
-            prod.fournisseur = fournisseur;
+            if (prod.fournisseur) {
+                fournisseur = { "id": prod.fournisseur.id };
+                prod.fournisseur = fournisseur;
+            }
         });
         this.service.edit(newCommande, this.produits, this.touchedList).subscribe(
             (val) => {

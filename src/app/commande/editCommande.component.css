@@ -1,0 +1,62 @@
+.title-container{
+    background-color: rgb(250, 250, 250);
+    padding: 10px;
+}
+h2{
+    margin: 0px;
+}
+
+.main-form{
+    background-color: rgb(250, 250, 250);
+    border-bottom: solid 1px rgb(228, 228, 228);
+}
+
+.table-header{
+    border-bottom: solid 1px #81d4fa;
+}
+
+.table-header h5{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: gray;
+}
+
+.produits-container{
+    border-top: solid 1px #81d4fa;
+    background-color: rgb(250, 250, 250);
+    overflow-y: auto;
+    min-height: calc(100vh - 337px) !important;
+    max-height: calc(100vh - 337px) !important;
+    height: calc(100vh - 337px) !important;
+}
+
+.produits-footer{
+    border-top: solid 1px rgb(228, 228, 228);
+}
+
+.produits-footer h4, .produits-footer h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.submit-button{
+    background-color: #03a9f4;
+    color: white;
+}
+
+.button-container{
+    padding-top : 10px;
+    padding-bottom : 10px;
+}
+
+.price-align{
+    text-align: right;
+}
+
+.selected-client-container{
+    background-color: #e0e0e0;
+    color: gray;
+    padding-left: 10px;
+    min-height: 50px;
+    max-height: 50px;
+}

@@ -37,27 +37,29 @@ export class CreateUserComponent implements OnInit {
             return;
         }
         this.validating = true;
-        let newUser: IUser;
-        newUser = {
-            username: formValues.username,
-            password: formValues.password,
-            firstname: formValues.firstname,
-            lastname: formValues.lastname,
-            email: formValues.email,
-            enabled: true,
-            lastPasswordResetDate: new Date(),
-            role: { id: 1 }
-        };
+        if (this.userForm.valid) {
+            let newUser: IUser;
+            newUser = {
+                username: formValues.username,
+                password: formValues.password,
+                firstname: formValues.firstname,
+                lastname: formValues.lastname,
+                email: formValues.email,
+                enabled: true,
+                lastPasswordResetDate: new Date(),
+                role: { id: 1 }
+            };
 
-        this.userService.create(newUser).subscribe((val) => {
-            this.location.back();
-            this.snackBar.open("success", null, { duration: 2000 });
-        },
-            (err) => {
+            this.userService.create(newUser).subscribe((val) => {
+                this.location.back();
+                this.snackBar.open("L'utilisateur : " + formValues.username + " créé", null, { duration: 2000 });
             },
-            () => {
+                (err) => {
+                },
+                () => {
 
-            });
+                });
+        }
         this.validating = false;
     }
 

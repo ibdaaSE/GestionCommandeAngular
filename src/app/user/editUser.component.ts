@@ -65,7 +65,7 @@ export class EditUserComponent implements OnInit {
 
         this.userService.edit(newUser).subscribe((val) => {
             this.location.back();
-            this.snackBar.open("success", null, { duration: 2000 });
+            this.snackBar.open("L'utilisateur : " + formValues.username + " modifié", null, { duration: 2000 });
         },
             (err) => {
             },

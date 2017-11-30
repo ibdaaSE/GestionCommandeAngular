@@ -6,6 +6,7 @@ import "rxjs/add/operator/map";
 import { IFournisseur, IProduit } from "app/shared/models";
 import { FournisseurService } from "app/services/fournisseur.service";
 import { OnChanges } from "@angular/core/src/metadata/lifecycle_hooks";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
     selector: "create-produit",
@@ -30,7 +31,7 @@ export class CreateProduitComponent implements OnInit, OnChanges {
 
     validating = false;
 
-    constructor(private FournisseurService: FournisseurService) {
+    constructor(private FournisseurService: FournisseurService, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -97,6 +98,11 @@ export class CreateProduitComponent implements OnInit, OnChanges {
             return;
         }
         this.validating = true;
+        if (!this.selectedFournisseur && !formValues.produits) {
+            this.snackBar.open("Produit vide !", null, { duration: 2000 });
+            this.validating = false;
+            return;
+        }
         let newProduit: IProduit;
         newProduit = {
             delai: formValues.delai,

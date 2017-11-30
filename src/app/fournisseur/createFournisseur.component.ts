@@ -38,25 +38,27 @@ export class CreateFournisseurComponent implements OnInit {
             return;
         }
         this.validating = true;
-        let newFournisseur: IFournisseur;
-        newFournisseur = {
-            raisonSociale: formValues.raisonSociale,
-            responsable: formValues.responsable,
-            adresse: formValues.adresse,
-            email: formValues.email,
-            cp: formValues.cp,
-            ville: formValues.ville,
-            pays: formValues.pays
-        };
+        if (this.raisonSociale.valid) {
+            let newFournisseur: IFournisseur;
+            newFournisseur = {
+                raisonSociale: formValues.raisonSociale,
+                responsable: formValues.responsable,
+                adresse: formValues.adresse,
+                email: formValues.email,
+                cp: formValues.cp,
+                ville: formValues.ville,
+                pays: formValues.pays
+            };
 
-        this.fournisseurService.create(newFournisseur).subscribe((val) => {
-            this.location.back();
-            this.snackBar.open("success", null, { duration: 2000 });
-        },
-            (err) => {
+            this.fournisseurService.create(newFournisseur).subscribe((val) => {
+                this.location.back();
+                this.snackBar.open("Le fournisseur : " + formValues.raisonSociale + " créé", null, { duration: 2000 });
             },
-            () => {
-            });
+                (err) => {
+                },
+                () => {
+                });
+        }
         this.validating = false;
     }
 

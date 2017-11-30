@@ -3,11 +3,11 @@
                 <h1>Nouvel Uutilisateur</h1>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                         <mat-input-container floatPlaceholder="auto" fxFlex>
-                                <input matInput formControlName="username" type="text" placeholder="Nom d'utilisateur" autofocus>
+                                <input matInput formControlName="username" type="text" placeholder="Nom d'utilisateur" autofocus required>
                         </mat-input-container>
                         <span fxFlex="1"></span>
                         <mat-input-container floatPlaceholder="auto" fxFlex>
-                                <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Mot de Passe">
+                                <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Mot de Passe" required>
                                 <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </mat-input-container>
                 </div>
@@ -27,15 +27,16 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-raised-button class="submit-button" (click)="createUser(userForm.value)" type="button">
+                        <button *ngIf="!validating" mat-raised-button class="submit-button" (click)="createUser(userForm.value)" type="button">
                                 <mat-icon>done</mat-icon>
                                 <span>Valider</span>
                         </button>
                         <span fxFlex="1"></span>
-                        <button mat-raised-button (click)="cancel()" type="button">
+                        <button *ngIf="!validating" mat-raised-button (click)="cancel()" type="button">
                                 <mat-icon>clear</mat-icon>
                                 <span>Annuler</span>
                         </button>
+                        <mat-spinner *ngIf="validating"></mat-spinner>
                 </div>
         </form>
 </div>

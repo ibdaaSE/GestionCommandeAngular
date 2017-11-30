@@ -26,7 +26,7 @@ export class UserInfoComponent implements OnInit {
                 this.refreshEvent.emit("Impossible de supprimer cet utilisateur");
             },
             () => {
-                this.refreshEvent.emit("Utilisater supprimé");
+                this.refreshEvent.emit("Utilisateur supprimé");
             });
     }
 

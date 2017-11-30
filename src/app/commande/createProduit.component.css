@@ -1,0 +1,15 @@
+form{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #e1f5fe;
+}
+
+.add-button{
+    background-color: #03a9f4;    
+}
+
+.selected-fournisseur-container{
+    background-color: #4fc3f7;
+    color: white;
+    padding-left: 10px;
+}

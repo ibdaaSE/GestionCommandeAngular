@@ -8,7 +8,7 @@ import { ClientService } from "app/services/client.service";
 import { Http, RequestOptions, Response, Headers } from "@angular/http";
 import { CommandeService } from "app/services/commande.service";
 import { Location } from "@angular/common";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.component";
 
 @Component({
@@ -18,13 +18,13 @@ import { ConfirmationDialogComponent } from "app/shared/confirmationDialog.compo
 })
 export class CreateCommandeComponent implements OnInit {
     commandeForm: FormGroup;
-    searchClientForm = new FormControl("", Validators.required);
-    dateCommande = new FormControl("", Validators.required);
-    montantHT = new FormControl("", Validators.required);
-    montantTTC = new FormControl("", Validators.required);
-    delaiLivraison = new FormControl("", Validators.required);
-    refCommandeClient = new FormControl("", Validators.required);
-    modePayement = new FormControl("", Validators.required);
+    searchClientForm = new FormControl();
+    dateCommande = new FormControl();
+    montantHT = new FormControl();
+    montantTTC = new FormControl();
+    delaiLivraison = new FormControl();
+    refCommandeClient = new FormControl();
+    modePayement = new FormControl();
     public selectedClient: IClient;
     filtredClients: Observable<IClient[]>;
 
@@ -36,7 +36,7 @@ export class CreateCommandeComponent implements OnInit {
     validating = false;
 
     constructor(private service: CommandeService, private clientService: ClientService, private http: Http, private location: Location,
-        public dialog: MatDialog) {
+        public dialog: MatDialog, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -88,6 +88,13 @@ export class CreateCommandeComponent implements OnInit {
     }
 
     addProduit(produit: IProduit) {
+        const existingProduits = this.produits.filter((p: IProduit) =>
+            !p.fournisseur || !produit.fournisseur ? p.produits === produit.produits :
+                (p.fournisseur.id === produit.fournisseur.id && p.produits === produit.produits));
+        if (existingProduits.length > 0) {
+            this.snackBar.open("Ce produit existe déjà", null, { duration: 2000 });
+            return;
+        }
         this.produits.push(produit);
         this.totalAchatsHT = this.totalAchatsHT + produit.montantHT;
         this.totalAchatsTTC = this.totalAchatsTTC + produit.montantTTC;
@@ -95,7 +102,8 @@ export class CreateCommandeComponent implements OnInit {
 
     deletedProduit(produitToDelete: IProduit) {
         this.produits = this.produits.filter((produit: IProduit) =>
-            produit.fournisseur.id !== produitToDelete.fournisseur.id);
+            !produit.fournisseur || !produitToDelete.fournisseur ? produit.produits !== produitToDelete.produits :
+                (produit.fournisseur.id !== produitToDelete.fournisseur.id) || (produit.produits !== produitToDelete.produits));
         this.totalAchatsHT = this.totalAchatsHT - produitToDelete.montantHT;
         this.totalAchatsTTC = this.totalAchatsTTC - produitToDelete.montantTTC;
         this.edittedProduit = produitToDelete;
@@ -106,6 +114,11 @@ export class CreateCommandeComponent implements OnInit {
             return;
         }
         this.validating = true;
+        if (!this.selectedClient) {
+            this.snackBar.open("Veuillez sélectionner un client", null, { duration: 2000 });
+            this.validating = false;
+            return;
+        }
         let newCommande: ICommande;
         newCommande = {
             numero: formValues.numero,
@@ -121,8 +134,11 @@ export class CreateCommandeComponent implements OnInit {
         };
         this.produits.map((prod: IProduit) => {
             let fournisseur;
-            fournisseur = { "id": prod.fournisseur.id };
-            prod.fournisseur = fournisseur;
+            if (prod.fournisseur) {
+                fournisseur = { "id": prod.fournisseur.id };
+                prod.fournisseur = fournisseur;
+            }
+
         });
         this.validating = false;
         this.service.create(newCommande, this.produits);

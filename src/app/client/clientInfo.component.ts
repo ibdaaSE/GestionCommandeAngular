@@ -25,7 +25,7 @@ export class ClientInfoComponent implements OnInit {
                 this.deleteEvent.emit("Impossible de supprimer ce client");
             },
             () => {
-                this.deleteEvent.emit("Supprimé avec success");
+                this.deleteEvent.emit("Client supprimé");
             });
     }
 

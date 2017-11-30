@@ -67,7 +67,7 @@ export class EditClientComponent implements OnInit {
 
         this.clientService.edit(newClient).subscribe((val) => {
             this.location.back();
-            this.snackBar.open("success", null, { duration: 2000 });
+            this.snackBar.open("Le client : " + formValues.raisonSociale + " modifié", null, { duration: 2000 });
         },
             (err) => {
             },

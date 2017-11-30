@@ -6,7 +6,7 @@
     <p class="active-account" *ngIf="user.enabled" fxFlex="100px">Activé</p>
     <p class="inactive-account" *ngIf="!user.enabled" fxFlex="100px">Désactivé</p>
    
-    <button mat-icon-button (click)="onClick" [matMenuTriggerFor]="userMenu">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #userMenu="matMenu">

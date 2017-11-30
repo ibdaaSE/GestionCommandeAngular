@@ -23,10 +23,10 @@ export class CommandeInfoComponent implements OnInit {
             subscribe((val) => {
             },
             (err) => {
-                this.deleteEvent.emit("failed");
+                this.deleteEvent.emit("Impossible de supprimer cette commande");
             },
             () => {
-                this.deleteEvent.emit("success");
+                this.deleteEvent.emit("Commande supprimée");
             });
     }
 
